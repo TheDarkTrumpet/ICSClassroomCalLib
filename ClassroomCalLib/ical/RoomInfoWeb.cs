@@ -7,7 +7,7 @@ using DDay.iCal;
 
 namespace ClassroomCalLib.ical
 {
-    internal class RoomInfoWeb : IRoomInfo
+    class RoomInfoWeb : IRoomInfo
     {
         private IEnumerable<Room> myRooms = new Room[](
             new Room
@@ -78,6 +78,15 @@ namespace ClassroomCalLib.ical
         {
             throw new NotImplementedException();
         }
+
+        public bool Load()
+        {
+            bool success = true;
+            foreach (Room mr in myRooms)
+            {
+                success = success & mr.LoadFromURI(mr.URI);
+            }
+            return success;
+        }
     }
-}
 }

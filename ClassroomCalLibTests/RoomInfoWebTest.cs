@@ -1,14 +1,18 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ClassroomCalLib.ical;
 
 namespace ClassroomCalLibTests
 {
     [TestClass]
-    public class UnitTest1
+    public class RoomInfoWebTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestURLLoad()
         {
+            RoomInfoWeb ri = new RoomInfoWeb();
+
+            ri.Load();
         }
     }
 }
