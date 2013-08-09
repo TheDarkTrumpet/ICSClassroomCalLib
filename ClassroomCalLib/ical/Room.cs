@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DDay.iCal;
+using ClassroomCalLib.util;
 
 namespace ClassroomCalLib.ical
 {
@@ -29,6 +30,7 @@ namespace ClassroomCalLib.ical
         // Attributes
         public String RoomNumber { get; set; }
         public Uri URI { get; set; }
+        public string 
 
         public IEnumerable<IFreeBusyEntry> BusyTimes(int minutesFuture)
         {
@@ -63,19 +65,19 @@ namespace ClassroomCalLib.ical
          * Given a URI/URL, we call iCalendar's LoadFromURI, select the first element in the return, then return true.
          * </summary>
          */
-        public bool LoadFromURI(Uri myURI)
+        public bool Load(ICSUri path)
         {
-            iCalc = iCalendar.LoadFromUri(myURI);
+            iCalc = iCalendar.LoadFromUri(path);
             iCal = iCalc.FirstOrDefault();
-            this.URI = myURI;
-            return true;
+            this.URI = path;
+            return true;            
         }
-
-        public bool LoadFromFile(string filepath)
+        
+        public bool Load(ICSPath path)
         {
-            iCalc = iCalendar.LoadFromFile(filepath);
+            iCalc = iCalendar.LoadFromFile(path);
             iCal = iCalc.FirstOrDefault();
-            return true;
+            return true;            
         }
     }
 }

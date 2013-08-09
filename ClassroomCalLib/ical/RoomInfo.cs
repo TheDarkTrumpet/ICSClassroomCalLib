@@ -7,9 +7,9 @@ using DDay.iCal;
 
 namespace ClassroomCalLib.ical
 {
-    class RoomInfoWeb : IRoomInfo
+    class RoomInfo : IRoomInfo
     {
-        private IEnumerable<Room> myRooms = new Room[](
+        private IEnumerable<Room> myRooms = new Room[]{
             new Room
                 {
                     RoomNumber = "RES-PHAR-129",
@@ -66,7 +66,7 @@ namespace ClassroomCalLib.ical
                         new Uri(
                 "http://email.uiowa.edu/owa/calendar/dfca5bf180484ed589e55cc3a8e6f239@iowa.uiowa.edu/5fa0fb650082495e9e6add737cb304fc1655299616341240835/calendar.ics")
                 }
-            );
+        }.AsEnumerable();
 
 
         public IEnumerable<IFreeBusyEntry> BusyScheduleFor(string RoomNumber, DateTime StartDate, DateTime EndDate)
