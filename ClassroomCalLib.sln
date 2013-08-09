@@ -5,6 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassroomCalLib", "Classroo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassroomCalLibTests", "ClassroomCalLibTests\ClassroomCalLibTests.csproj", "{E0CDCF57-5AD8-4000-BC5E-4F06B366D26C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test Scripts", "Test Scripts", "{0AC9B33B-DF09-48A0-AB7B-9D6E505E4095}"
+	ProjectSection(SolutionItems) = preProject
+		Test Scripts\iCalUiowa.linq = Test Scripts\iCalUiowa.linq
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
