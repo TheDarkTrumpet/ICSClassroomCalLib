@@ -50,10 +50,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="RoomInfoWebTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ClassroomCalLib\ClassroomCalLib.csproj">
+      <Project>{00222e6e-9c3b-4385-ad94-aa5d3c4b22c1}</Project>
+      <Name>ClassroomCalLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fixture\RES-PHAR-129.ics" />
   </ItemGroup>
