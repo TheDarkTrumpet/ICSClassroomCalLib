@@ -12,7 +12,7 @@ namespace ClassroomCalLib.ical
      * Class that describes a common room.  Contains the RoomNumber and
      * helper methods that can be used to identify the BusyTimes
      */ 
-    class Room
+    public class Room
     {
         public Room() { }
 

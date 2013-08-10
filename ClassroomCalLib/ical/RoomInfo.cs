@@ -69,7 +69,12 @@ namespace ClassroomCalLib.ical
                 }
         }.AsEnumerable();
 
-        
+        public RoomInfo() { }
+        public RoomInfo(IEnumerable<Room>roomStructure)
+        {
+            myRooms = roomStructure;
+        }
+
         public IEnumerable<IFreeBusyEntry> BusyScheduleFor(string RoomNumber, DateTime StartDate, DateTime EndDate)
         {
             throw new NotImplementedException();
