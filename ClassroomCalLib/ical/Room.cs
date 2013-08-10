@@ -16,10 +16,10 @@ namespace ClassroomCalLib.ical
     {
         public Room() { }
 
-        public Room(String RoomNumber, Uri URIToLoad)
+        public Room(String RoomNumber, ICSUri URIToLoad)
         {
             this.RoomNumber = RoomNumber;
-            this.LoadFromURI(URIToLoad);
+            this.Load(URIToLoad);
         }
 
         public Room(String RoomNumber)
@@ -29,19 +29,18 @@ namespace ClassroomCalLib.ical
 
         // Attributes
         public String RoomNumber { get; set; }
-        public Uri URI { get; set; }
-        public string 
+        public ICSUri URI { get; set; }
 
         public IEnumerable<IFreeBusyEntry> BusyTimes(int minutesFuture)
         {
             return BusyTimes(DateTime.Now.AddSeconds(minutesFuture));
         }
 
-        public IEnumerable<IFreeBusyEntry> BusyTimes(DateTime DateToGo, DateTime InitialTime=null)
+        public IEnumerable<IFreeBusyEntry> BusyTimes(DateTime DateToGo, DateTime InitialTime=default(DateTime))
         {
             if (iCal != null)
             {
-                if (InitialTime == null)
+                if (InitialTime == default(DateTime))
                 {
                     InitialTime = DateTime.Now;
                 }
@@ -67,7 +66,7 @@ namespace ClassroomCalLib.ical
          */
         public bool Load(ICSUri path)
         {
-            iCalc = iCalendar.LoadFromUri(path);
+            iCalc = iCalendar.LoadFromUri(path.toURI());
             iCal = iCalc.FirstOrDefault();
             this.URI = path;
             return true;            
@@ -75,7 +74,7 @@ namespace ClassroomCalLib.ical
         
         public bool Load(ICSPath path)
         {
-            iCalc = iCalendar.LoadFromFile(path);
+            iCalc = iCalendar.LoadFromFile(path.ToString());
             iCal = iCalc.FirstOrDefault();
             return true;            
         }

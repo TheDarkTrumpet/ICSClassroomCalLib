@@ -10,9 +10,14 @@ namespace ClassroomCalLib.util
     {
         private Uri Path { get; set; }
 
-        public IcsUri(string val)
+        public ICSUri(string val)
         {
             Path = new Uri(val);
+        }
+
+        public Uri toURI()
+        {
+            return Path;
         }
     }
 
