@@ -6,24 +6,37 @@ using System.Threading.Tasks;
 
 namespace ClassroomCalLib.util
 {
-    public class ICSUri
+    public class CustomCalLocation
     {
-        private Uri Path { get; set; }
-
-        public ICSUri(string val)
-        {
-            Path = new Uri(val);
-        }
-
         public Uri toURI()
         {
-            return Path;
+            throw new Exception("Not Implemented");
+        }
+
+        public String Path()
+        {
+            throw new Exception("Not Implemented");
         }
     }
 
-    public class FilePath
+    public class ICSUri : CustomCalLocation
     {
-        private String Path { get; set; }
+        private Uri icsPath { get; set; }
+
+        public ICSUri(string val)
+        {
+            icsPath = new Uri(val);
+        }
+
+        public new Uri toURI()
+        {
+            return icsPath;
+        }
+    }
+
+    public class FilePath : CustomCalLocation
+    {
+        private new String Path { get; set; }
         public FilePath() { }
         public FilePath(string val)
         {
