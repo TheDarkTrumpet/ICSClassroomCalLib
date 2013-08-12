@@ -34,7 +34,8 @@ namespace ClassroomCalLib.ical
 
         public IEnumerable<IFreeBusyEntry> BusyTimes(int minutesFuture)
         {
-            return BusyTimes(DateTime.Now.AddSeconds(minutesFuture));
+            DateTime myTime = SystemTime.Now();
+            return BusyTimes(SystemTime.Now().AddMinutes(minutesFuture));
         }
 
         public IEnumerable<IFreeBusyEntry> BusyTimes(DateTime DateToGo, DateTime InitialTime=default(DateTime))
@@ -43,7 +44,7 @@ namespace ClassroomCalLib.ical
             {
                 if (InitialTime == default(DateTime))
                 {
-                    InitialTime = DateTime.Now;
+                    InitialTime = SystemTime.Now();
                 }
 
                 IFreeBusy ifb = iCal.GetFreeBusy(

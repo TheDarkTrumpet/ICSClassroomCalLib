@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using DDay.iCal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ClassroomCalLib.ical;
@@ -23,6 +24,20 @@ namespace ClassroomCalLibTests
             Assert.AreEqual(busyTimes.Count(), 1);
             Assert.AreEqual(busyTimes.FirstOrDefault().Status.ToString(), "Busy");
             Assert.AreEqual(busyTimes.FirstOrDefault().StartTime, new DateTime(2013,8,8,15,30,0));
+        }
+
+        [TestMethod]
+        public void TestBusyTimesFromMinFuture()
+        {
+            Room r = new Room { FPATHLocation = new ICSPath("../../fixture/RES-PHAR-129.ics"), RoomNumber = "RES-PHAR-129" };
+            r.Load(r.FPATHLocation);
+            SystemTime.Now = () => new DateTime(2013, 8, 8, 15, 0, 0);
+            IEnumerable<IFreeBusyEntry> busyTimes = r.BusyTimes(120);
+
+            //Assert
+            Assert.AreEqual(busyTimes.Count(), 1);
+            Assert.AreEqual(busyTimes.FirstOrDefault().Status.ToString(), "Busy");
+            Assert.AreEqual(busyTimes.FirstOrDefault().StartTime, new DateTime(2013, 8, 8, 15, 30, 0));
         }
     }
 }
