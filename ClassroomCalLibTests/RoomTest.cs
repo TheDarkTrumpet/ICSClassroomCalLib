@@ -19,11 +19,10 @@ namespace ClassroomCalLibTests
             r.Load(r.FPATHLocation);
             DateTime nFirst = new DateTime(2013,8,8,15,0,0);
             DateTime nSecond = new DateTime(2013,8,8,17,0,0);
-            IEnumerable<IFreeBusyEntry> busyTimes = r.BusyTimes(nSecond, nFirst);
+            IEnumerable<SimpleEvent> busyTimes = r.BusyTimes(nSecond, nFirst);
 
             Assert.AreEqual(busyTimes.Count(), 1);
-            Assert.AreEqual(busyTimes.FirstOrDefault().Status.ToString(), "Busy");
-            Assert.AreEqual(busyTimes.FirstOrDefault().StartTime, new DateTime(2013,8,8,15,30,0));
+            Assert.AreEqual(busyTimes.FirstOrDefault().EventStart, new DateTime(2013,8,8,15,30,0));
         }
 
         [TestMethod]
@@ -32,12 +31,11 @@ namespace ClassroomCalLibTests
             Room r = new Room { FPATHLocation = new ICSPath("../../fixture/RES-PHAR-129.ics"), RoomNumber = "RES-PHAR-129" };
             r.Load(r.FPATHLocation);
             SystemTime.Now = () => new DateTime(2013, 8, 8, 15, 0, 0);
-            IEnumerable<IFreeBusyEntry> busyTimes = r.BusyTimes(120);
+            IEnumerable<SimpleEvent> busyTimes = r.BusyTimes(120);
 
             //Assert
             Assert.AreEqual(busyTimes.Count(), 1);
-            Assert.AreEqual(busyTimes.FirstOrDefault().Status.ToString(), "Busy");
-            Assert.AreEqual(busyTimes.FirstOrDefault().StartTime, new DateTime(2013, 8, 8, 15, 30, 0));
+            Assert.AreEqual(busyTimes.FirstOrDefault().EventStart, new DateTime(2013, 8, 8, 15, 30, 0));
         }
 
         [TestMethod]

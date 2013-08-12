@@ -40,12 +40,12 @@ namespace ClassroomCalLib.ical
         private Boolean CacheLoaded = false;
 
 
-        public IEnumerable<IFreeBusyEntry> BusyTimes(int minutesFuture)
+        public IEnumerable<SimpleEvent> BusyTimes(int minutesFuture)
         {
             return BusyTimes(SystemTime.Now().AddMinutes(minutesFuture));
         }
 
-        public IEnumerable<IFreeBusyEntry> BusyTimes(DateTime DateToGo, DateTime InitialTime=default(DateTime))
+        public IEnumerable<SimpleEvent> BusyTimes(DateTime DateToGo, DateTime InitialTime=default(DateTime))
         {
             if (iCal != null || CacheLoaded)
             {
@@ -59,10 +59,7 @@ namespace ClassroomCalLib.ical
                     CacheToSimple(InitialTime, DateToGo);
                 }
 
-                IFreeBusy ifb = iCal.GetFreeBusy(
-                    new iCalDateTime(InitialTime, "US-Central"),
-                    new iCalDateTime(DateToGo, "US-Central"));
-                return ifb.Entries.ToList();
+                return CachedEvents.AsEnumerable();
             }
             else
             {
