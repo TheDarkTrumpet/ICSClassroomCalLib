@@ -34,7 +34,6 @@ namespace ClassroomCalLib.ical
 
         public IEnumerable<IFreeBusyEntry> BusyTimes(int minutesFuture)
         {
-            DateTime myTime = SystemTime.Now();
             return BusyTimes(SystemTime.Now().AddMinutes(minutesFuture));
         }
 
