@@ -20,9 +20,13 @@
 
 RoomInfo ri = new RoomInfo();
 ri.LoadRoom("RES-PHAR-129");
+Room curRoom = ri.GetRoomByName("RES-PHAR-129");
 
 //Get a pruned listing of the next week's events:
-IEnumerable<IFreeBusyEntry> busyTimes = ri.GetRoomByName("RES-PHAR-129").BusyTimes(new DateTime(2013,8,14,17,0,0), new DateTime(2013,8,8,17,0,0));
+IEnumerable<IFreeBusyEntry> busyTimes = curRoom.BusyTimes(new DateTime(2013,8,14,17,0,0), new DateTime(2013,8,8,17,0,0));
 
-busyTimes.ToList().Dump();
-Console.WriteLine("Number of events: " + busyTimes.Count);
+Console.WriteLine("Number of events: " + busyTimes.ToList().Count);
+
+curRoom.GetCalendar().Events.FirstOrDefault().Dump();
+//Create a new calendar and 
+//IICalendar newCal = new IICalendar();

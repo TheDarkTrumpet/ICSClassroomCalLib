@@ -39,5 +39,18 @@ namespace ClassroomCalLibTests
             Assert.AreEqual(busyTimes.FirstOrDefault().Status.ToString(), "Busy");
             Assert.AreEqual(busyTimes.FirstOrDefault().StartTime, new DateTime(2013, 8, 8, 15, 30, 0));
         }
+
+        [TestMethod]
+        public void TestSimpleCache()
+        {
+            Room r = new Room { FPATHLocation = new ICSPath("../../fixture/RES-PHAR-129.ics"), RoomNumber = "RES-PHAR-129" };
+            r.Load(r.FPATHLocation);
+
+            List<SimpleEvent> se = r.CacheToSimple(new DateTime(2013, 8, 8, 17, 0, 0), 6);
+            
+
+            //Assert
+            Assert.AreEqual(se.Count, 2);
+        }
     }
 }

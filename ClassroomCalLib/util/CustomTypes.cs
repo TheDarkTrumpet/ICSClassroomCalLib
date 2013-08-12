@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using DDay.Collections;
@@ -40,10 +42,12 @@ namespace ClassroomCalLib.util
         public static Func<DateTime> Now = () => DateTime.Now;
     }
 
-    [Serializable]
-    public class CachedEvents
+ 
+    public class SimpleEvent
     {
-        public DateTime LastCached { get; set; }
-        public  IFreeBusy CachedBusy { get; set; }
+        public string EventName { get; set; }
+        public DateTime EventStart { get; set; }
+        public DateTime EventStop { get; set; }
+        public string Status { get; set; }
     }
 }
