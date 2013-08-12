@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using DDay.iCal;
 
 namespace ClassroomCalLib.ical
 {
-    public class RoomInfo : IRoomInfo
+    public class RoomInfo
     {
         private IEnumerable<Room> myRooms = new Room[]{
             new Room
@@ -75,34 +76,54 @@ namespace ClassroomCalLib.ical
             myRooms = roomStructure;
         }
 
-        public IEnumerable<IFreeBusyEntry> BusyScheduleFor(string RoomNumber, DateTime StartDate, DateTime EndDate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<IFreeBusyEntry> FreeScheduleFor(string RoomNumber, DateTime StartDate, DateTime EndDate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Load(string type="URI")
+        public bool LoadAll(string type="URI")
         {
             bool success = false;
             foreach (Room mr in myRooms)
             {
-                if (type == "URI")
-                {
-                    success = success | mr.Load(mr.URILocation);
-                } else if (type == "File")
-                {
-                    success = success | mr.Load(mr.FPATHLocation);
-                }
-                else
-                {
-                    throw new Exception("Acceptable types of URI and File are allowed");
-                }
+                success = success | _GenericLoader(mr, type);
             }
             return success;
+        }
+
+        public bool LoadRoom(string room, string type = "URI")
+        {
+            Room mr = GetRoomByName(room);
+            if (mr == null)
+            {
+                throw new NullReferenceException("Room not found in the collection of available rooms");
+            }
+
+            return _GenericLoader(mr, type);
+        }
+
+        private bool _GenericLoader(Room RoomToLoad, string type)
+        {
+            bool success = false;
+            if (type == "URI")
+            {
+                success = success | RoomToLoad.Load(RoomToLoad.URILocation);
+            }
+            else if (type == "File")
+            {
+                success = success | RoomToLoad.Load(RoomToLoad.FPATHLocation);
+            }
+            else
+            {
+                throw new ArgumentException("Acceptable types of URI and File are allowed");
+            }
+            return success;
+        }
+
+        public Room GetRoomByName(string name)
+        {
+            //There should *never* be duplicate rooms
+            return myRooms.FirstOrDefault(x => x.RoomNumber == name);
+        }
+
+        public IEnumerable<Room> GetAllRooms()
+        {
+            return myRooms;
         }
     }
 }

@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ical\IRoomInfo.cs" />
     <Compile Include="ical\Room.cs" />
     <Compile Include="ical\RoomInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DDay.Collections;
+using DDay.iCal;
 
 namespace ClassroomCalLib.util
 {
@@ -37,5 +38,12 @@ namespace ClassroomCalLib.util
     public static class SystemTime
     {
         public static Func<DateTime> Now = () => DateTime.Now;
+    }
+
+    [Serializable]
+    public class CachedEvents
+    {
+        public DateTime LastCached { get; set; }
+        public  IFreeBusy CachedBusy { get; set; }
     }
 }

@@ -45,7 +45,7 @@ namespace ClassroomCalLib.ical
                 {
                     InitialTime = SystemTime.Now();
                 }
-
+                
                 IFreeBusy ifb = iCal.GetFreeBusy(
                     new iCalDateTime(InitialTime, "US-Central"),
                     new iCalDateTime(DateToGo, "US-Central"));
