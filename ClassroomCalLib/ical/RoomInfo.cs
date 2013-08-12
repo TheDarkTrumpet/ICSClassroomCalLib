@@ -87,15 +87,19 @@ namespace ClassroomCalLib.ical
 
         public bool Load(string type="URI")
         {
-            bool success = true;
+            bool success = false;
             foreach (Room mr in myRooms)
             {
                 if (type == "URI")
                 {
-                    success = success & mr.Load(mr.URILocation);
+                    success = success | mr.Load(mr.URILocation);
                 } else if (type == "File")
                 {
-                    success = success & mr.Load(mr.FPATHLocation);
+                    success = success | mr.Load(mr.FPATHLocation);
+                }
+                else
+                {
+                    throw new Exception("Acceptable types of URI and File are allowed");
                 }
             }
             return success;

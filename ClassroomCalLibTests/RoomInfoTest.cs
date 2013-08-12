@@ -37,5 +37,31 @@ namespace ClassroomCalLibTests
             RoomInfo ri = new RoomInfo(myRooms);
             Assert.IsTrue(ri.Load("File"));
         }
+
+        [TestMethod]
+        public void TestLoadOfNoRooms()
+        {
+            IEnumerable<Room> myRooms = new Room[] {}.AsEnumerable();
+            RoomInfo ri = new RoomInfo(myRooms);
+            Assert.IsFalse(ri.Load("File"));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void TestIncorrectLoadOption()
+        {
+            IEnumerable<Room> myRooms = new Room[]{
+            new Room
+                {
+                    RoomNumber = "RES-PHAR-129",
+                    FPATHLocation =
+                        new ICSPath(
+                "../../fixture/RES-PHAR-129.ics")
+                }
+            }.AsEnumerable();
+
+            RoomInfo ri = new RoomInfo(myRooms);
+            ri.Load();
+        }
     }
 }
