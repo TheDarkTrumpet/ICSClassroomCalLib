@@ -29,7 +29,8 @@ namespace ClassroomCalLib.ical
 
         // Attributes
         public String RoomNumber { get; set; }
-        public CustomCalLocation location { get; set; }
+        public ICSUri URILocation { get; set; }
+        public ICSPath FPATHLocation { get; set; }
 
         public IEnumerable<IFreeBusyEntry> BusyTimes(int minutesFuture)
         {
@@ -68,7 +69,7 @@ namespace ClassroomCalLib.ical
         {
             iCalc = iCalendar.LoadFromUri(path.toURI());
             iCal = iCalc.FirstOrDefault();
-            this.location = path;
+            this.URILocation = path;
             return true;            
         }
         
@@ -76,6 +77,7 @@ namespace ClassroomCalLib.ical
         {
             iCalc = iCalendar.LoadFromFile(path.ToString());
             iCal = iCalc.FirstOrDefault();
+            this.FPATHLocation = path;
             return true;            
         }
     }

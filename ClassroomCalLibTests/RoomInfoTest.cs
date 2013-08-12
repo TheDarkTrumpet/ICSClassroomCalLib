@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ClassroomCalLib.ical;
+using ClassroomCalLib.util;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ClassroomCalLibTests
 {
@@ -16,6 +19,23 @@ namespace ClassroomCalLibTests
         {
             RoomInfo ri = new RoomInfo();
             Assert.IsTrue(ri.Load());
+        }
+
+        [TestMethod]
+        public void TestFileLoad()
+        {
+            IEnumerable<Room> myRooms = new Room[]{
+            new Room
+                {
+                    RoomNumber = "RES-PHAR-129",
+                    FPATHLocation =
+                        new ICSPath(
+                "../../fixture/RES-PHAR-129.ics")
+                }
+            }.AsEnumerable();
+
+            RoomInfo ri = new RoomInfo(myRooms);
+            Assert.IsTrue(ri.Load("File"));
         }
     }
 }
