@@ -35,7 +35,10 @@ namespace ClassroomCalLib.ical
         public ICSPath FPATHLocation { get; set; }
         private IICalendarCollection iCalc;
         private IICalendar iCal;
-        private List<SimpleEvent> CachedEvents = new List<SimpleEvent>(); 
+
+        private List<SimpleEvent> CachedEvents = new List<SimpleEvent>();
+        private Boolean CacheLoaded = false;
+
 
         public IEnumerable<IFreeBusyEntry> BusyTimes(int minutesFuture)
         {
@@ -44,13 +47,18 @@ namespace ClassroomCalLib.ical
 
         public IEnumerable<IFreeBusyEntry> BusyTimes(DateTime DateToGo, DateTime InitialTime=default(DateTime))
         {
-            if (iCal != null)
+            if (iCal != null || CacheLoaded)
             {
                 if (InitialTime == default(DateTime))
                 {
                     InitialTime = SystemTime.Now();
                 }
-                
+
+                if (CacheLoaded == false)
+                {
+                    CacheToSimple(InitialTime, DateToGo);
+                }
+
                 IFreeBusy ifb = iCal.GetFreeBusy(
                     new iCalDateTime(InitialTime, "US-Central"),
                     new iCalDateTime(DateToGo, "US-Central"));
@@ -62,22 +70,22 @@ namespace ClassroomCalLib.ical
             }
         }
 
-        public List<SimpleEvent> CacheToSimple(DateTime startDate = default(DateTime), int daysToCache = default(int))
+        public List<SimpleEvent> CacheToSimple(DateTime startDate = default(DateTime), DateTime endDate = default(DateTime))
         {
             if (iCal != null)
             {
                 var ifb = iCal.Events;
-                DateTime endDate = new DateTime();
+                
                 CachedEvents.Clear();
-                if (daysToCache != default(int) && startDate != default(DateTime))
+                if (endDate == default(DateTime) && startDate != default(DateTime))
                 {
-                    endDate = startDate.AddDays(daysToCache);
+                    endDate = startDate.AddDays(7);  //Default cache is 1 week in the future
                 }
 
                 foreach (Event e in ifb)
                 {
                     // If we have defaults, equate to True.  If we don't have defaults
-                    if (!(daysToCache != default(int) && startDate != default(DateTime)) ||
+                    if (!(startDate != default(DateTime) && endDate != default(DateTime)) ||
                         (endDate >= e.Start.ToTimeZone("US-Central").Value &&
                          startDate <= e.End.ToTimeZone("US-Central").Value))
                     {
@@ -90,6 +98,7 @@ namespace ClassroomCalLib.ical
                         CachedEvents.Add(ne);
                     }
                 }
+                CacheLoaded = true;
                 return CachedEvents;
             }
             else

@@ -46,9 +46,8 @@ namespace ClassroomCalLibTests
             Room r = new Room { FPATHLocation = new ICSPath("../../fixture/RES-PHAR-129.ics"), RoomNumber = "RES-PHAR-129" };
             r.Load(r.FPATHLocation);
 
-            List<SimpleEvent> se = r.CacheToSimple(new DateTime(2013, 8, 8, 17, 0, 0), 6);
+            List<SimpleEvent> se = r.CacheToSimple(new DateTime(2013, 8, 8, 17, 0, 0));
             
-
             //Assert
             Assert.AreEqual(se.Count, 2);
         }
