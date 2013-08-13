@@ -71,4 +71,4 @@ foreach(XElement xe in doc.Elements("Room"))
 	myRoom.setCache(events);
 }
 
-ri.GetAllRooms().Dump();
+ri.GetAllRooms().Select(x => new {bt = x.BusyTimes().ToArray()}).Dump();
