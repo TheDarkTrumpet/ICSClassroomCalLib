@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using DDay.iCal;
 using ClassroomCalLib.util;
 using DDay.iCal.Serialization.iCalendar;
@@ -102,6 +103,12 @@ namespace ClassroomCalLib.ical
             {
                 throw new Exception("iCalendar has not been set/loaded");
             }
+        }
+
+        public void setCache(List<SimpleEvent> events)
+        {
+            CachedEvents = events;
+            CacheLoaded = true;
         }
 
        public IICalendar GetCalendar()
