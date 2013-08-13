@@ -153,5 +153,34 @@ namespace ClassroomCalLib.ical
             }
             doc.Save(FilePath);
         }
+
+        public void DeserializeFromFile(String FilePath)
+        {
+            XElement doc = XElement.Load(FilePath);
+            foreach (XElement xe in doc.Elements("Room"))
+            {
+                Room myRoom = GetRoomByName(xe.Element("Room").Value);
+                var xe2 = xe.Element("Events").Elements("Event");
+                List<SimpleEvent> events = new List<SimpleEvent>();
+
+                myRoom.RoomNumber = xe.Element("Room").Value;
+
+                foreach (XElement xe3 in xe2)
+                {
+                    DateTime EStart = DateTime.Parse(xe3.Element("StartTime").Value);
+                    DateTime EStop = DateTime.Parse(xe3.Element("EndTime").Value);
+
+
+                    events.Add(new SimpleEvent
+                    {
+                        EventName = xe3.Element("EventName").Value,
+                        EventStart = EStart,
+                        EventStop = EStop,
+                        Status = "Busy"
+                    });
+                }
+                myRoom.setCache(events);
+            }
+        }
     }
 }

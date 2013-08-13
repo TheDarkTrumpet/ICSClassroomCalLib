@@ -96,5 +96,11 @@ namespace ClassroomCalLibTests
             RoomInfo ri = new RoomInfo();
             Assert.IsTrue(ri.LoadRoom("omg hax hax"));
         }
+
+        [TestMethod]
+        public void TestSerialization()
+        {
+            
+        }
     }
 }
