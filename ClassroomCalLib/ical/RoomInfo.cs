@@ -131,12 +131,11 @@ namespace ClassroomCalLib.ical
         public void SerializeToFile(String FilePath)
         {
             XElement doc = new XElement("Rooms");
-
+            doc.Add(new XElement("DTCached", DateTime.Now));
             foreach (Room r in GetAllRooms())
             {
                 List<XElement> elements = new List<XElement>();
-                IEnumerable<SimpleEvent> busyTimes = r.BusyTimes(new DateTime(2013, 8, 14, 17, 0, 0),
-                    new DateTime(2013, 8, 8, 17, 0, 0));
+                IEnumerable<SimpleEvent> busyTimes = r.BusyTimes();
                 foreach (SimpleEvent e in busyTimes)
                 {
                     elements.Add(
@@ -147,10 +146,10 @@ namespace ClassroomCalLib.ical
                 }
                 XElement f = new XElement("Room",
                     new XElement("Room", r.RoomNumber),
-                    new XElement("CachedTime", DateTime.Now),
                     new XElement("Events", elements));
                 doc.Add(f);
             }
+;
             doc.Save(FilePath);
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ClassroomCalLib.ical;
 using ClassroomCalLib.util;
@@ -100,7 +101,41 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestSerialization()
         {
-            
+            var myTestFile = "../../fixture/testserialization.xml";
+
+            File.Delete(myTestFile);
+            IEnumerable<Room> myRooms = new Room[]
+            {
+                new Room
+                {
+                    RoomNumber = "RES-PHAR-129",
+                    FPATHLocation =
+                        new ICSPath(
+                            "../../fixture/RES-PHAR-129.ics")
+                },
+                new Room
+                {
+                    RoomNumber = "RES-PHAR-226",
+                    FPATHLocation = new ICSPath("../../fixture/RES-PHAR-226.ics")
+                }
+            }.AsEnumerable();
+
+            RoomInfo ri = new RoomInfo(myRooms);
+            ri.LoadAll("File");
+            ri.SerializeToFile(myTestFile);
+
+            Assert.IsTrue(File.Exists(myTestFile));
+
+            // Now load...
+            RoomInfo ri2 = new RoomInfo(myRooms);
+            ri.DeserializeFromFile(myTestFile);
+
+            //Longer assert...We should have the same output
+            Assert.AreEqual(ri.GetRoomByName("RES-PHAR-129").BusyTimes(), ri2.GetRoomByName("RES-PHAR-129").BusyTimes());
+            Assert.AreEqual(ri.GetRoomByName("RES-PHAR-226").BusyTimes(), ri2.GetRoomByName("RES-PHAR-226").BusyTimes());
+
+            //Cleanup
+            File.Delete(myTestFile);
         }
     }
 }
