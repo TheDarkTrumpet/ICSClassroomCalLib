@@ -1,6 +1,6 @@
 <Query Kind="Statements">
-  <Reference Relative="..\ClassroomCalLib\bin\Debug\ClassroomCalLib.dll">C:\programming\ClassroomCalLib\ClassroomCalLib\bin\Debug\ClassroomCalLib.dll</Reference>
-  <Reference Relative="..\ClassroomCalLib\bin\Debug\DDay.iCal.dll">C:\programming\ClassroomCalLib\ClassroomCalLib\bin\Debug\DDay.iCal.dll</Reference>
+  <Reference Relative="..\ClassroomCalLib\bin\Debug\ClassroomCalLib.dll">C:\Users\David\programming\PHAR-ClassroomCalLib\ClassroomCalLib\bin\Debug\ClassroomCalLib.dll</Reference>
+  <Reference Relative="..\ClassroomCalLib\bin\Debug\DDay.iCal.dll">C:\Users\David\programming\PHAR-ClassroomCalLib\ClassroomCalLib\bin\Debug\DDay.iCal.dll</Reference>
   <Namespace>ClassroomCalLib.ical</Namespace>
   <Namespace>ClassroomCalLib.util</Namespace>
   <Namespace>DDay.Collections</Namespace>
@@ -23,10 +23,28 @@ ri.LoadRoom("RES-PHAR-129");
 Room curRoom = ri.GetRoomByName("RES-PHAR-129");
 
 //Get a pruned listing of the next week's events:
-IEnumerable<IFreeBusyEntry> busyTimes = curRoom.BusyTimes(new DateTime(2013,8,14,17,0,0), new DateTime(2013,8,8,17,0,0));
+IEnumerable<SimpleEvent> busyTimes = curRoom.BusyTimes(new DateTime(2013,8,14,17,0,0), new DateTime(2013,8,8,17,0,0));
 
 Console.WriteLine("Number of events: " + busyTimes.ToList().Count);
 
-curRoom.GetCalendar().Events.FirstOrDefault().Dump();
-//Create a new calendar and 
-//IICalendar newCal = new IICalendar();
+busyTimes.Dump();
+
+XElement doc = new XElement("Rooms");
+
+XElement Events = new XElement("Events");
+
+foreach(SimpleEvent e in busyTimes)
+{
+	Events.Add(
+		new XElement("Event",
+			new XElement("EventName", e.EventName),
+			new XElement("StartTime", e.EventStart),
+			new XElement("EndTime", e.EventStop)));
+}
+XElement f = new XElement("Room",
+		new XElement("Room", "RES-PHAR-129"),
+		new XElement("CachedTime", DateTime.Now),
+		new XElement("Events", Events));
+f.Add("Foo", "Bar");
+doc.Add(f);
+doc.Dump();
