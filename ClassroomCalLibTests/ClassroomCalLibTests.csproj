@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="fixture\RES-PHAR-129.ics" />
+    <Content Include="fixture\RES-PHAR-226.ics" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
