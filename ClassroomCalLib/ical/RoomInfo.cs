@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using ClassroomCalLib.util;
 using DDay.iCal;
 
@@ -124,6 +125,33 @@ namespace ClassroomCalLib.ical
         public IEnumerable<Room> GetAllRooms()
         {
             return myRooms;
+        }
+
+
+        public void SerializeToFile(String FilePath)
+        {
+            XElement doc = new XElement("Rooms");
+
+            foreach (Room r in GetAllRooms())
+            {
+                List<XElement> elements = new List<XElement>();
+                IEnumerable<SimpleEvent> busyTimes = r.BusyTimes(new DateTime(2013, 8, 14, 17, 0, 0),
+                    new DateTime(2013, 8, 8, 17, 0, 0));
+                foreach (SimpleEvent e in busyTimes)
+                {
+                    elements.Add(
+                        new XElement("Event",
+                            new XElement("EventName", e.EventName),
+                            new XElement("StartTime", e.EventStart.ToLongTimeString()),
+                            new XElement("EndTime", e.EventStop.ToLongTimeString())));
+                }
+                XElement f = new XElement("Room",
+                    new XElement("Room", r.RoomNumber),
+                    new XElement("CachedTime", DateTime.Now),
+                    new XElement("Events", elements));
+                doc.Add(f);
+            }
+            doc.Save(FilePath);
         }
     }
 }

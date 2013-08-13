@@ -48,25 +48,28 @@ namespace ClassroomCalLib.ical
 
         public IEnumerable<SimpleEvent> BusyTimes(DateTime DateToGo, DateTime InitialTime=default(DateTime))
         {
-            if (iCal != null || CacheLoaded)
-            {
-                if (InitialTime == default(DateTime))
+            var BusyTimes = this.BusyTimes();
+            
+            if (InitialTime == default(DateTime))
                 {
                     InitialTime = SystemTime.Now();
                 }
 
-                if (CacheLoaded == false)
-                {
-                    CacheToSimple(InitialTime, DateToGo);
-                }
-
-                return CachedEvents.AsEnumerable();
-            }
-            else
-            {
-                return null;
-            }
+            return BusyTimes.Where(x => x.EventStart <= DateToGo && x.EventStop >= InitialTime);
         }
+
+        public IEnumerable<SimpleEvent> BusyTimes()
+        {
+            //If no iCal object, then we haven't loaded.  If no cache, then there's nothing to query from and we got here incorrectly
+            if(!iCal.IsLoaded && !CacheLoaded) { throw new Exception("You must call the Load() method, or set a cache, prior to this function"); }
+
+            if (iCal.IsLoaded && !CacheLoaded)
+            {
+                CacheToSimple();
+            }
+            
+            return CachedEvents;
+        } 
 
         public List<SimpleEvent> CacheToSimple(DateTime startDate = default(DateTime), DateTime endDate = default(DateTime))
         {
