@@ -26,16 +26,20 @@ namespace ClassroomCalLibTests
         public void TestFriendOutputFuzzy()
         {
             FriendlyEvent e = new FriendlyEvent();
-            Assert.AreEqual(e.DeltaToFriendly("Busy", DateTime.Now, DateTime.Now.AddMinutes(30).AddSeconds(12)),
-              "Busy for about 30 minutes");
-            Assert.AreEqual(e.DeltaToFriendly("Busy", DateTime.Now, DateTime.Now.AddMinutes(30).AddSeconds(52)),
-              "Busy for about 31 minutes");
+            Assert.AreEqual("Busy for about 30 minutes", e.DeltaToFriendly("Busy", DateTime.Now, DateTime.Now.AddMinutes(30).AddSeconds(12)));
+            Assert.AreEqual("Busy for about 31 minutes", e.DeltaToFriendly("Busy", DateTime.Now, DateTime.Now.AddMinutes(30).AddSeconds(52)));
 
             //Hours
-            Assert.AreEqual(e.DeltaToFriendly("Busy", DateTime.Now, DateTime.Now.AddHours(3).AddMinutes(12)),
-              "Busy for 3 hours, and 12 minutes");
-            Assert.AreEqual(e.DeltaToFriendly("Busy", DateTime.Now, DateTime.Now.AddDays(3).AddHours(12)),
-               "Busy for 3 days, and 12 hours");
+            Assert.AreEqual("Busy for 3 hours, and 12 minutes",
+                e.DeltaToFriendly("Busy", DateTime.Now, DateTime.Now.AddHours(3).AddMinutes(12)));
+            Assert.AreEqual("Busy for 3 hours, and 52 minutes",
+                e.DeltaToFriendly("Busy", DateTime.Now, DateTime.Now.AddHours(3).AddMinutes(52)));
+
+
+            Assert.AreEqual("Busy for 3 days, and 12 hours",
+                e.DeltaToFriendly("Busy", DateTime.Now, DateTime.Now.AddDays(3).AddHours(12)));
+            Assert.AreEqual("Busy for 3 days, and 22 hours",
+                e.DeltaToFriendly("Busy", DateTime.Now, DateTime.Now.AddDays(3).AddHours(22)));
         }
     }
 }

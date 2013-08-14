@@ -83,14 +83,14 @@ namespace ClassroomCalLib.util
             } else if (60*60 <= seconds && seconds < 60*60*12)
             {
                 double hours = seconds/(60*60);
-                double minutes = seconds%(60*60);
-                return Math.Round(hours, 0).ToString() + " hours, and " + Math.Round(minutes,0).ToString() + " minutes";
+                double minutes = (seconds - (Math.Floor(hours) * 60 * 60))/60;
+                return Math.Floor(hours).ToString() + " hours, and " + Math.Round(minutes,0).ToString() + " minutes";
             }
             else
             {
                 double days = seconds/(60*60*24);
-                double hours = seconds%(60*60*24);
-                return Math.Round(days, 0).ToString() + " days, and " + Math.Round(hours,0).ToString() + " hours";
+                double hours = (seconds - (Math.Floor(days)*60*60*24))/(60*60);
+                return Math.Floor(days).ToString() + " days, and " + Math.Round(hours,0).ToString() + " hours";
             }
         }
 
