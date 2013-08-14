@@ -57,8 +57,24 @@ namespace ClassroomCalLib.util
     public class FriendlyEvent
     {
         private string Status;
+        private string deltaToFriendlyText;
 
-        public string DeltaToFriendly(string status, DateTime startDateTime, DateTime stopDateTime)
+        public FriendlyEvent(string statusText, DateTime startDateTime, DateTime stopDateTime)
+        {
+            deltaToFriendlyText = DeltaToFriendly(statusText, startDateTime, stopDateTime);
+        }
+
+        public FriendlyEvent(string statusText)
+        {
+            deltaToFriendlyText = statusText;
+        }
+
+        public override string ToString()
+        {
+            return deltaToFriendlyText;
+        }
+
+        private string DeltaToFriendly(string status, DateTime startDateTime, DateTime stopDateTime)
         {
             double seconds = stopDateTime.Subtract(startDateTime).TotalSeconds;
 

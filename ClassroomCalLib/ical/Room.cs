@@ -40,6 +40,26 @@ namespace ClassroomCalLib.ical
         private List<SimpleEvent> CachedEvents = new List<SimpleEvent>();
         private Boolean CacheLoaded = false;
 
+        public FriendlyEvent FreeBusyToString(DateTime dt = default(DateTime))
+        {
+            SimpleEvent SoonestEvent = BusyTimes().Where(x => (dt <= x.EventStop) || (dt <= x.EventStart)).OrderBy(x => x.EventStart).FirstOrDefault();
+
+            if (SoonestEvent == null)
+            {
+                //We really shouldn't get here, it basically means we have no cache at all, so we can't determine how free or busy we are.
+                return new FriendlyEvent("Free for an unknown period of time");
+            } else if (dt <= SoonestEvent.EventStart) //Currently we are Free
+            {
+                return new FriendlyEvent("Free", DateTime.Now, SoonestEvent.EventStart);
+            } else if (dt <= SoonestEvent.EventStop) //Currently busy
+            {
+                return new FriendlyEvent("Busy", DateTime.Now, SoonestEvent.EventStop);
+            }
+            else
+            {
+                throw new Exception("FreeBusyString reached a point it shouldn't have.");
+            }
+        }
 
         public IEnumerable<SimpleEvent> BusyTimes(int minutesFuture)
         {
