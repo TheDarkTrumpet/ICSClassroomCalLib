@@ -88,7 +88,7 @@ namespace ClassroomCalLib.ical
             //If no iCal object, then we haven't loaded.  If no cache, then there's nothing to query from and we got here incorrectly
             if ((iCal == null || !iCal.IsLoaded) && !CacheLoaded) { throw new TypeUnloadedException("You must call the Load() method, or set a cache, prior to this function"); }
 
-            if (iCal.IsLoaded && !CacheLoaded)
+            if ((iCal != null && iCal.IsLoaded) && !CacheLoaded)
             {
                 CacheToSimple();
             }
