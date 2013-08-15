@@ -49,5 +49,24 @@ namespace ClassroomCalLibTests
             //Assert
             Assert.AreEqual(se.Count, 2);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeUnloadedException))]
+        public void TestFreeBusyToStringException()
+        {
+            Room r = new Room { FPATHLocation = new ICSPath("../../fixture/RES-PHAR-129.ics"), RoomNumber = "RES-PHAR-129" };
+            //Missing load function here...
+            Assert.AreEqual("", r.FreeBusyToString(new DateTime(2013, 8, 1, 10, 15, 0)));
+        }
+
+        [TestMethod]
+        public void TestFreeBusyToString()
+        {
+            Room r = new Room { FPATHLocation = new ICSPath("../../fixture/RES-PHAR-129.ics"), RoomNumber = "RES-PHAR-129" };
+            r.Load(r.FPATHLocation);
+            Assert.AreEqual("Busy for 2 hours, and 45 minutes", r.FreeBusyToString(new DateTime(2013, 8, 1, 10, 15, 0)).ToString());
+            //This may be best said as "free for about 4 days, and 21 hours
+            Assert.AreEqual("Free for 4 days, and 21 hours", r.FreeBusyToString(new DateTime(2013, 8, 1, 13, 15, 0)).ToString());
+        }
     }
 }

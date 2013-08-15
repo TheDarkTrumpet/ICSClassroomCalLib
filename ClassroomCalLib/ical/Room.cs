@@ -42,6 +42,11 @@ namespace ClassroomCalLib.ical
 
         public FriendlyEvent FreeBusyToString(DateTime dt = default(DateTime))
         {
+            if (dt == default(DateTime))
+            {
+                dt = SystemTime.Now();
+            }
+
             SimpleEvent SoonestEvent = BusyTimes().Where(x => (dt <= x.EventStop) || (dt <= x.EventStart)).OrderBy(x => x.EventStart).FirstOrDefault();
 
             if (SoonestEvent == null)
@@ -50,10 +55,10 @@ namespace ClassroomCalLib.ical
                 return new FriendlyEvent("Free for an unknown period of time");
             } else if (dt <= SoonestEvent.EventStart) //Currently we are Free
             {
-                return new FriendlyEvent("Free", DateTime.Now, SoonestEvent.EventStart);
+                return new FriendlyEvent("Free", dt, SoonestEvent.EventStart);
             } else if (dt <= SoonestEvent.EventStop) //Currently busy
             {
-                return new FriendlyEvent("Busy", DateTime.Now, SoonestEvent.EventStop);
+                return new FriendlyEvent("Busy", dt, SoonestEvent.EventStop);
             }
             else
             {
@@ -81,7 +86,7 @@ namespace ClassroomCalLib.ical
         public IEnumerable<SimpleEvent> BusyTimes()
         {
             //If no iCal object, then we haven't loaded.  If no cache, then there's nothing to query from and we got here incorrectly
-            if(!iCal.IsLoaded && !CacheLoaded) { throw new Exception("You must call the Load() method, or set a cache, prior to this function"); }
+            if ((iCal == null || !iCal.IsLoaded) && !CacheLoaded) { throw new TypeUnloadedException("You must call the Load() method, or set a cache, prior to this function"); }
 
             if (iCal.IsLoaded && !CacheLoaded)
             {

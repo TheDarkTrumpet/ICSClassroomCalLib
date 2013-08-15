@@ -112,7 +112,7 @@ namespace ClassroomCalLib.util
 
         private string exactCheck(double seconds)
         {
-            if (seconds < 60 || (seconds%60 == 0))
+            if (seconds < 60 || (seconds%60 == 0))  //This doesn't take in account even-ness in hours.
             {
                 return "";
             }
