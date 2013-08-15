@@ -56,33 +56,36 @@ namespace ClassroomCalLib.util
 
     public class FriendlyEvent
     {
-        private string Status;
-        private string deltaToFriendlyText;
+        public string Status { get; set; }
+        public double SecondsInStatus { get; set; }
+        private readonly string _deltaToFriendlyText;
 
         public FriendlyEvent(string statusText, DateTime startDateTime, DateTime stopDateTime)
         {
-            deltaToFriendlyText = DeltaToFriendly(statusText, startDateTime, stopDateTime);
+            Status = statusText;
+            _deltaToFriendlyText = DeltaToFriendly(statusText, startDateTime, stopDateTime);
         }
 
         public FriendlyEvent(string statusText)
         {
-            deltaToFriendlyText = statusText;
+            Status = statusText;
+            _deltaToFriendlyText = statusText;
         }
 
         public override string ToString()
         {
-            return deltaToFriendlyText;
+            return _deltaToFriendlyText;
         }
 
         private string DeltaToFriendly(string status, DateTime startDateTime, DateTime stopDateTime)
         {
-            double seconds = stopDateTime.Subtract(startDateTime).TotalSeconds;
+            SecondsInStatus = stopDateTime.Subtract(startDateTime).TotalSeconds;
 
             StringBuilder sb = new StringBuilder();
             sb.Append(status);
             sb.Append(" for ");
-            sb.Append(exactCheck(seconds));
-            sb.Append(hoursMinutes(seconds));
+            sb.Append(exactCheck(SecondsInStatus));
+            sb.Append(hoursMinutes(SecondsInStatus));
             return sb.ToString();
         }
 
