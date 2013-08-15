@@ -87,7 +87,7 @@ namespace ClassroomCalLibTests
         public void TestLoadOfSingleRoomWithDefaultURI()
         {
             RoomInfo ri = new RoomInfo();
-            Assert.IsTrue(ri.LoadRoom("RES-PHAR-129"));
+            Assert.IsTrue(ri.LoadRoom("PHAR-129"));
         }
 
         [TestMethod]
