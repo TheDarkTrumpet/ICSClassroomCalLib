@@ -141,8 +141,8 @@ namespace ClassroomCalLib.ical
                     elements.Add(
                         new XElement("Event",
                             new XElement("EventName", e.EventName),
-                            new XElement("StartTime", e.EventStart.ToLongTimeString()),
-                            new XElement("EndTime", e.EventStop.ToLongTimeString())));
+                            new XElement("StartTime", e.EventStart.ToString()),
+                            new XElement("EndTime", e.EventStop.ToString())));
                 }
                 XElement f = new XElement("Room",
                     new XElement("Room", r.RoomNumber),
