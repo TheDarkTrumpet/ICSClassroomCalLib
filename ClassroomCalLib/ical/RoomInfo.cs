@@ -57,14 +57,14 @@ namespace ClassroomCalLib.ical
                 },
             new Room
                 {
-                    RoomNumber = "PHAR-ZOPH-100A",
+                    RoomNumber = "PHAR-ZOPF-100A",
                     URILocation =
                         new ICSUri(
                 "http://email.uiowa.edu/owa/calendar/5dbd85075a2c4f1282f26f83fe4a5441@iowa.uiowa.edu/c79da2e03cf64036aa7489a9672a9cd15569082608891722194/calendar.ics")
                 },
             new Room
                 {
-                    RoomNumber = "PHAR-ZOPH-100B",
+                    RoomNumber = "PHAR-ZOPF-100B",
                     URILocation =
                         new ICSUri(
                 "http://email.uiowa.edu/owa/calendar/dfca5bf180484ed589e55cc3a8e6f239@iowa.uiowa.edu/5fa0fb650082495e9e6add737cb304fc1655299616341240835/calendar.ics")
