@@ -117,7 +117,7 @@ namespace ClassroomCalLib.ical
                     {
                         SimpleEvent ne = new SimpleEvent
                         {
-                            EventName = e.Name,
+                            EventName = e.Summary,
                             EventStart = e.Start.ToTimeZone("US-Central").Value,
                             EventStop = e.End.ToTimeZone("US-Central").Value
                         };
