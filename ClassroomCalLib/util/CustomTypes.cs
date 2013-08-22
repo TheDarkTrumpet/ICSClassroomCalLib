@@ -49,6 +49,7 @@ namespace ClassroomCalLib.util
     public class SimpleEvent
     {
         public string EventName { get; set; }
+        public string EventDescription { get; set; }
         public DateTime EventStart { get; set; }
         public DateTime EventStop { get; set; }
         public string Status { get; set; }

@@ -22,6 +22,11 @@ namespace ClassroomCalLib.ical
                 },
             new Room
                 {
+                    RoomNumber = "PHAR-219",
+                    URILocation = new ICSUri("http://email.uiowa.edu/owa/calendar/76f3e6c39e6f42b6b34633862e8cce9c@iowa.uiowa.edu/6362fa9530284033a0114380e8455b6b13811647012849326299/calendar.ics")
+                },
+            new Room
+                {
                     RoomNumber = "PHAR-226",
                     URILocation =
                         new ICSUri(
