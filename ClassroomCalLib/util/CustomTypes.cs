@@ -86,13 +86,16 @@ namespace ClassroomCalLib.util
             sb.Append(status);
             sb.Append(" for ");
             sb.Append(exactCheck(SecondsInStatus));
+            //sb.Append(exactCheck(new TimeSpan(0,0,SecondsInStatus)));
             sb.Append(hoursMinutes(SecondsInStatus));
+            //sb.Append(hoursMinutes(new TimeSpan(0,0,int(SecondsInStatus))));
             return sb.ToString();
         }
 
         // Private functions to help with 
         private string hoursMinutes(double seconds)
         {
+            
             if (seconds < 60)
             {
                 return seconds.ToString() + " seconds";

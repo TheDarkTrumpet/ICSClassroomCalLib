@@ -5,6 +5,7 @@ using ClassroomCalLib.ical;
 using ClassroomCalLib.util;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace ClassroomCalLibTests
 {
@@ -136,6 +137,12 @@ namespace ClassroomCalLibTests
 
             //Cleanup
             File.Delete(myTestFile);
+        }
+
+        [TestMethod]
+        public void TestLoadXML()
+        {
+            Assert.IsTrue(File.Exists("../../../ClassroomCalLib/XML/classrooms.xml"));
         }
     }
 }

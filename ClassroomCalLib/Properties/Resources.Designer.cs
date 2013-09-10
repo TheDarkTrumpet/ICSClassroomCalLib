@@ -59,5 +59,23 @@ namespace ClassroomCalLib.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;CATALOG&gt;
+        ///	&lt;Classroom&gt;
+        ///		&lt;RoomNumber&gt;PHAR-129&lt;/RoomNumber&gt;
+        ///		&lt;UriLocation&gt;http://email.uiowa.edu/owa/calendar/1e6dbdb8e4814563ab994449345e95d4@iowa.uiowa.edu/5a824eb9eed54decbcc295e54102622c11906123505361280052/calendar.ics&lt;/UriLocation&gt;
+        ///	&lt;/Classroom&gt;
+        ///	&lt;Classroom&gt;
+        ///		&lt;RoomNumber&gt;PHAR-219&lt;/RoomNumber&gt;
+        ///		&lt;UriLocation&gt;http://email.uiowa.edu/owa/calendar/76f3e6c39e6f42b6b34633862e8cce9c@iowa.uiowa.edu/6362fa9530284033a0114380e8455b6b13811647012849326299/calendar.ics&lt;/UriLocation&gt;
+        ///	 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string classrooms {
+            get {
+                return ResourceManager.GetString("classrooms", resourceCulture);
+            }
+        }
     }
 }
