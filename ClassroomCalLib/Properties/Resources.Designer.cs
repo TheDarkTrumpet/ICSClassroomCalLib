@@ -22,7 +22,7 @@ namespace ClassroomCalLib.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ClassroomCalLib.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ClassroomCalLib.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace ClassroomCalLib.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -72,7 +72,7 @@ namespace ClassroomCalLib.Properties {
         ///		&lt;UriLocation&gt;http://email.uiowa.edu/owa/calendar/76f3e6c39e6f42b6b34633862e8cce9c@iowa.uiowa.edu/6362fa9530284033a0114380e8455b6b13811647012849326299/calendar.ics&lt;/UriLocation&gt;
         ///	 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string classrooms {
+        public static string classrooms {
             get {
                 return ResourceManager.GetString("classrooms", resourceCulture);
             }

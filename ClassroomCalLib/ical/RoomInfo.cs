@@ -26,6 +26,8 @@ namespace ClassroomCalLib.ical
                         new ICSUri((string)ele.Element("UriLocation"))
                         )
                     ).AsEnumerable();
+            else
+                myRooms = new Room[] { }; //runs if can't find the xml
         }
 
         public RoomInfo(IEnumerable<Room>roomStructure)

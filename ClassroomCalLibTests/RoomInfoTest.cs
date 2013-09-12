@@ -144,5 +144,33 @@ namespace ClassroomCalLibTests
         {
             Assert.IsTrue(File.Exists("../../../ClassroomCalLib/XML/classrooms.xml"));
         }
+
+        [TestMethod]
+        public void TestValidXMLElements()
+        {
+            //test makes sure that the XML document contains the elements we expect
+            //test will fail if the nodes don't match up to whats expect
+            //or if a syntax error occurs in the xmldoc (like a node not getting closed)
+
+            XDocument _myXDocument = XDocument.Parse(ClassroomCalLib.Properties.Resources.classrooms);
+
+            // tests that the root element of the doc is <CATALOG>
+            Assert.IsTrue(_myXDocument.Root.Name.ToString().Equals("CATALOG"));
+
+            // tests that the child elements of <CATALOG> are <Classroom>
+            foreach (XElement xele in _myXDocument.Root.Elements())
+            {
+                Assert.IsTrue(xele.Name.ToString().Equals("Classroom"));
+            }
+
+            // tests that each <Classroom> has 2 elements in this order: <RoomNumber> and <UriLocation>
+            // note that this test doesn't check if the content of these elements are valid, just existence
+            foreach (XElement xele in _myXDocument.Root.Elements())
+            {
+                //obviously this will need to change if elements are added/removed from each <Classroom>
+                Assert.IsTrue((xele.FirstNode as XElement).Name.ToString().Equals("RoomNumber"));
+                Assert.IsTrue((xele.FirstNode.NextNode as XElement).Name.ToString().Equals("UriLocation"));
+            }
+        }
     }
 }
