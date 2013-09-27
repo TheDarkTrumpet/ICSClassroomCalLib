@@ -19,7 +19,8 @@ namespace ClassroomCalLibTests
          */
         public void TestDefaultURLLoadAll()
         {
-            RoomInfo ri = new RoomInfo();
+            RoomInfo ri = new RoomInfo("../../fixture/classrooms.xml");
+            //RoomInfo ri = new RoomInfo();
             Assert.IsTrue(ri.LoadAll());
         }
 
@@ -142,7 +143,7 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestLoadXML()
         {
-            Assert.IsTrue(File.Exists("../../../ClassroomCalLib/XML/classrooms.xml"));
+            Assert.IsTrue(File.Exists("../../fixture/classrooms.xml"));
         }
 
         [TestMethod]
@@ -152,7 +153,8 @@ namespace ClassroomCalLibTests
             //test will fail if the nodes don't match up to whats expect
             //or if a syntax error occurs in the xmldoc (like a node not getting closed)
 
-            XDocument _myXDocument = XDocument.Parse(ClassroomCalLib.Properties.Resources.classrooms);
+            //XDocument _myXDocument = XDocument.Parse(ClassroomCalLib.Properties.Resources.classrooms);
+            XDocument _myXDocument = XDocument.
 
             // tests that the root element of the doc is <CATALOG>
             Assert.IsTrue(_myXDocument.Root.Name.ToString().Equals("CATALOG"));

@@ -68,6 +68,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fixture\classrooms.xml" />
     <Content Include="fixture\RES-PHAR-129.ics" />
     <Content Include="fixture\RES-PHAR-226.ics" />
   </ItemGroup>
