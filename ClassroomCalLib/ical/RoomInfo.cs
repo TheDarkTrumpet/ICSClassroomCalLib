@@ -14,7 +14,7 @@ namespace ClassroomCalLib.ical
     public class RoomInfo
     {
         private IEnumerable<Room> myRooms;
-        private XDocument _myXDocument;
+        
 
         public RoomInfo()
         {
@@ -82,11 +82,11 @@ namespace ClassroomCalLib.ical
             return myRooms;
         }
 
-        public bool loadRoomInfoFromXML(Uri filUri)
+        public IEnumerable<Room> loadRoomInfoFromXML(Uri fileUri)
         {
-            _myXDocument = XDocument.Load(fileUri);
+            XDocument _myXDocument = XDocument.Load(fileUri.ToString());
 
-            myRooms = _myXDocument.Root.Elements("Classroom").Select
+            return _myXDocument.Root.Elements("Classroom").Select
                (ele => new Room
                   (
                     (string)ele.Element("RoomNumber"),
@@ -94,6 +94,7 @@ namespace ClassroomCalLib.ical
                   )
             ).AsEnumerable();
         }
+
         public void SerializeToFile(String FilePath)
         {
             XElement doc = new XElement("Rooms");
