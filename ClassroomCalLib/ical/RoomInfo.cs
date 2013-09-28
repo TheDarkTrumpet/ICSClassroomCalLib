@@ -78,9 +78,9 @@ namespace ClassroomCalLib.ical
 
         public List<Room> loadRoomInfoFromXML(Uri fileUri)
         {
-            XDocument _myXDocument = XDocument.Load(fileUri.ToString());
+            XDocument myXDocument = XDocument.Load(fileUri.ToString());
 
-            return _myXDocument.Root.Elements("Classroom").Select
+            return myXDocument.Elements("Classroom").Select
                (ele => new Room
                   (
                     (string)ele.Element("RoomNumber"),
