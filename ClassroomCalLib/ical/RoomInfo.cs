@@ -9,11 +9,6 @@ namespace ClassroomCalLib.ical
     public class RoomInfo
     {
         private List<Room> myRooms;
-        
-        public RoomInfo()
-        {
-            
-        }
 
         public RoomInfo(Uri pathToXML)
         {
