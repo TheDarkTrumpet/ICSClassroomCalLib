@@ -4,10 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using DDay.iCal;
 using ClassroomCalLib.util;
-using DDay.iCal.Serialization.iCalendar;
 
 namespace ClassroomCalLib.ical
 {
