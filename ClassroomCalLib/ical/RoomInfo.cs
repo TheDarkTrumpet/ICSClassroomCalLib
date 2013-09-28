@@ -23,18 +23,7 @@ namespace ClassroomCalLib.ical
 
         public RoomInfo(string pathToXML)
         {
-            _myXDocument = XDocument.Load(pathToXML);
-
-            if (_myXDocument.Root != null)
-                myRooms = _myXDocument.Root.Elements("Classroom").Select
-                    (ele => new Room
-                        (
-                        (string)ele.Element("RoomNumber"),
-                        new ICSUri((string)ele.Element("UriLocation"))
-                        )
-                    ).AsEnumerable();
-            else
-                myRooms = new Room[] { }; //runs if can't find the xml
+            
         }
 
         public RoomInfo(IEnumerable<Room>roomStructure)
@@ -93,7 +82,18 @@ namespace ClassroomCalLib.ical
             return myRooms;
         }
 
+        public bool loadRoomInfoFromXML(Uri filUri)
+        {
+            _myXDocument = XDocument.Load(fileUri);
 
+            myRooms = _myXDocument.Root.Elements("Classroom").Select
+               (ele => new Room
+                  (
+                    (string)ele.Element("RoomNumber"),
+                    new ICSUri((string)ele.Element("UriLocation"))
+                  )
+            ).AsEnumerable();
+        }
         public void SerializeToFile(String FilePath)
         {
             XElement doc = new XElement("Rooms");
