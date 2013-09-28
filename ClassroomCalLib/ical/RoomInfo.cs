@@ -15,7 +15,6 @@ namespace ClassroomCalLib.ical
     {
         private IEnumerable<Room> myRooms;
         
-
         public RoomInfo()
         {
             
@@ -23,7 +22,7 @@ namespace ClassroomCalLib.ical
 
         public RoomInfo(string pathToXML)
         {
-            
+            myRooms = loadRoomInfoFromXML(new Uri(pathToXML, UriKind.RelativeOrAbsolute));
         }
 
         public RoomInfo(IEnumerable<Room>roomStructure)
@@ -94,6 +93,7 @@ namespace ClassroomCalLib.ical
                   )
             ).AsEnumerable();
         }
+
 
         public void SerializeCacheToFile(String FilePath)
         {
