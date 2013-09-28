@@ -8,7 +8,7 @@ namespace ClassroomCalLib.ical
 {
     public class RoomInfo
     {
-        private IEnumerable<Room> myRooms;
+        private List<Room> myRooms;
         
         public RoomInfo()
         {
@@ -20,7 +20,7 @@ namespace ClassroomCalLib.ical
             myRooms = loadRoomInfoFromXML(pathToXML);
         }
 
-        public RoomInfo(IEnumerable<Room>roomStructure)
+        public RoomInfo(List<Room>roomStructure)
         {
             myRooms = roomStructure;
         }
@@ -76,7 +76,7 @@ namespace ClassroomCalLib.ical
             return myRooms;
         }
 
-        public IEnumerable<Room> loadRoomInfoFromXML(Uri fileUri)
+        public List<Room> loadRoomInfoFromXML(Uri fileUri)
         {
             XDocument _myXDocument = XDocument.Load(fileUri.ToString());
 
@@ -86,7 +86,7 @@ namespace ClassroomCalLib.ical
                     (string)ele.Element("RoomNumber"),
                     new ICSUri((string)ele.Element("UriLocation"))
                   )
-            ).AsEnumerable();
+            ).ToList();
         }
 
 

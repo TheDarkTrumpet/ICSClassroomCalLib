@@ -19,7 +19,7 @@ namespace ClassroomCalLibTests
          */
         public void TestDefaultURLLoadAll()
         {
-            RoomInfo ri = new RoomInfo(new Uri("../../fixture/classrooms.xml"));
+            RoomInfo ri = new RoomInfo(new Uri("../../fixture/classrooms.xml", UriKind.Relative));
             //RoomInfo ri = new RoomInfo();
             Assert.IsTrue(ri.LoadAll());
         }
@@ -27,7 +27,7 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestFileLoadAll()
         {
-            IEnumerable<Room> myRooms = new Room[]{
+            List<Room> myRooms = new Room[]{
             new Room
                 {
                     RoomNumber = "RES-PHAR-129",
@@ -35,7 +35,7 @@ namespace ClassroomCalLibTests
                         new ICSPath(
                 "../../fixture/RES-PHAR-129.ics")
                 }
-            }.AsEnumerable();
+            }.ToList();
 
             RoomInfo ri = new RoomInfo(myRooms);
             Assert.IsTrue(ri.LoadAll("File"));
@@ -44,7 +44,7 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestLoadAllOfNoRooms()
         {
-            IEnumerable<Room> myRooms = new Room[] {}.AsEnumerable();
+            List<Room> myRooms = new Room[] {}.ToList();
             RoomInfo ri = new RoomInfo(myRooms);
             Assert.IsFalse(ri.LoadAll("File"));
         }
@@ -53,7 +53,7 @@ namespace ClassroomCalLibTests
         [ExpectedException(typeof(NullReferenceException))]
         public void TestExceptionNullURILoadAll()
         {
-            IEnumerable<Room> myRooms = new Room[]{
+            List<Room> myRooms = new Room[]{
             new Room
                 {
                     RoomNumber = "RES-PHAR-129",
@@ -61,7 +61,7 @@ namespace ClassroomCalLibTests
                         new ICSPath(
                 "../../fixture/RES-PHAR-129.ics")
                 }
-            }.AsEnumerable();
+            }.ToList();
 
             RoomInfo ri = new RoomInfo(myRooms);  //Default is URI, should throw an error
             ri.LoadAll();
@@ -71,7 +71,7 @@ namespace ClassroomCalLibTests
         [ExpectedException(typeof(ArgumentException))]
         public void TestExceptionIncorrectURILoadAll()
         {
-            IEnumerable<Room> myRooms = new Room[]{
+            List<Room> myRooms = new Room[]{
             new Room
                 {
                     RoomNumber = "RES-PHAR-129",
@@ -79,7 +79,7 @@ namespace ClassroomCalLibTests
                         new ICSPath(
                 "../../fixture/RES-PHAR-129.ics")
                 }
-            }.AsEnumerable();
+            }.ToList();
 
             RoomInfo ri = new RoomInfo(myRooms);  //Default is URI, should throw an error
             ri.LoadAll("IncorrectLoadOption");
@@ -106,7 +106,7 @@ namespace ClassroomCalLibTests
             var myTestFile = "../../fixture/testserialization.xml";
 
             File.Delete(myTestFile);
-            IEnumerable<Room> myRooms = new Room[]
+            List<Room> myRooms = new Room[]
             {
                 new Room
                 {
@@ -120,7 +120,7 @@ namespace ClassroomCalLibTests
                     RoomNumber = "RES-PHAR-226",
                     FPATHLocation = new ICSPath("../../fixture/RES-PHAR-226.ics")
                 }
-            }.AsEnumerable();
+            }.ToList();
 
             RoomInfo ri = new RoomInfo(myRooms);
             ri.LoadAll("File");
