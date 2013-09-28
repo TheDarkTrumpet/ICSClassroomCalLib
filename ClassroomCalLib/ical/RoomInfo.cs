@@ -15,9 +15,9 @@ namespace ClassroomCalLib.ical
             
         }
 
-        public RoomInfo(string pathToXML)
+        public RoomInfo(Uri pathToXML)
         {
-            myRooms = loadRoomInfoFromXML(new Uri(pathToXML, UriKind.RelativeOrAbsolute));
+            myRooms = loadRoomInfoFromXML(pathToXML);
         }
 
         public RoomInfo(IEnumerable<Room>roomStructure)
