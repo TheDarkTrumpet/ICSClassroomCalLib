@@ -102,7 +102,7 @@ namespace ClassroomCalLib.util
             } else if (60 <= seconds && seconds < 60*60)
             {
                 double minutes = seconds/60;
-                return Math.Round(minutes).ToString() + " minutes";
+                return Math.Round(minutes,0).ToString() + " minutes";
             } else if (60*60 <= seconds && seconds < 60*60*12)
             {
                 double hours = seconds/(60*60);
