@@ -14,26 +14,16 @@ namespace ClassroomCalLib.ical
     public class RoomInfo
     {
         private IEnumerable<Room> myRooms;
-        private XDocument _myXDocument;// = XDocument.Parse(ClassroomCalLib.Properties.Resources.classrooms);
-        
-        //public RoomInfo()
-        //{
-        //    if (_myXDocument.Root != null)
-        //        myRooms = _myXDocument.Root.Elements("Classroom").Select
-        //            (ele => new Room
-        //                (
-        //                (string)ele.Element("RoomNumber"),
-        //                new ICSUri((string)ele.Element("UriLocation"))
-        //                )
-        //            ).AsEnumerable();
-        //    else
-        //        myRooms = new Room[] { }; //runs if can't find the xml
-        //}
+        private XDocument _myXDocument;
 
-        //public RoomInfo(XDocument doc)
+        public RoomInfo()
+        {
+            
+        }
+
         public RoomInfo(string pathToXML)
         {
-            _myXDocument = XDocument.Parse(pathToXML);
+            _myXDocument = XDocument.Load(pathToXML);
 
             if (_myXDocument.Root != null)
                 myRooms = _myXDocument.Root.Elements("Classroom").Select
