@@ -95,7 +95,7 @@ namespace ClassroomCalLib.ical
             ).AsEnumerable();
         }
 
-        public void SerializeToFile(String FilePath)
+        public void SerializeCacheToFile(String FilePath)
         {
             XElement doc = new XElement("Rooms");
             doc.Add(new XElement("DTCached", DateTime.Now));
@@ -119,7 +119,7 @@ namespace ClassroomCalLib.ical
             doc.Save(FilePath);
         }
 
-        public void DeserializeFromFile(String FilePath)
+        public void DeserializeCacheFromFile(String FilePath)
         {
             XElement doc = XElement.Load(FilePath);
             foreach (XElement xe in doc.Elements("Room"))

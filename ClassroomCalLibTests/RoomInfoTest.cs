@@ -124,13 +124,13 @@ namespace ClassroomCalLibTests
 
             RoomInfo ri = new RoomInfo(myRooms);
             ri.LoadAll("File");
-            ri.SerializeToFile(myTestFile);
+            ri.SerializeCacheToFile(myTestFile);
 
             Assert.IsTrue(File.Exists(myTestFile));
 
             // Now load...
             RoomInfo ri2 = new RoomInfo(myRooms);
-            ri.DeserializeFromFile(myTestFile);
+            ri.DeserializeCacheFromFile(myTestFile);
 
             //Longer assert...We should have the same output
             Assert.AreEqual(ri.GetRoomByName("RES-PHAR-129").BusyTimes(), ri2.GetRoomByName("RES-PHAR-129").BusyTimes());
