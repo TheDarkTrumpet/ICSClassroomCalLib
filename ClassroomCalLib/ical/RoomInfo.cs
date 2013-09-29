@@ -75,12 +75,12 @@ namespace ClassroomCalLib.ical
         {
             XDocument myXDocument = XDocument.Load(fileUri.ToString());
 
-            return myXDocument.Elements("Classroom").Select
+            return myXDocument.Root.Elements("Classroom").Select
                (ele => new Room
-                  (
-                    (string)ele.Element("RoomNumber"),
-                    new ICSUri((string)ele.Element("UriLocation"))
-                  )
+                  {
+                    RoomNumber = ele.Element("RoomNumber").Value,
+                    URILocation = new ICSUri(ele.Element("URILocation").Value)
+                  }
             ).ToList();
         }
 

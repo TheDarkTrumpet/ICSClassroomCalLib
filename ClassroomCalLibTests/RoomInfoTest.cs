@@ -85,6 +85,7 @@ namespace ClassroomCalLibTests
             ri.LoadAll("IncorrectLoadOption");
         }
 
+#if false
         [TestMethod]
         public void TestLoadOfSingleRoomWithDefaultURI()
         {
@@ -93,12 +94,13 @@ namespace ClassroomCalLibTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof (NullReferenceException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void TestExceptionSingleLoad()
         {
             RoomInfo ri = new RoomInfo();
             Assert.IsTrue(ri.LoadRoom("omg hax hax"));
-        }
+        } 
+#endif
 
         [TestMethod]
         public void TestSerialization()

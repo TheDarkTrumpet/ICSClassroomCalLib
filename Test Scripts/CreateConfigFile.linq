@@ -31,9 +31,18 @@ foreach(var r in Rooms)
 {
 	XElement f = new XElement("Classroom",
 		new XElement("RoomNumber", r.RoomNumber),
-		new XElement("URILocation", r.URILocation),
+		new XElement("URILocation", r.URILocation.toURI().ToString()),
 		new XElement("FPathLocation", r.FPATHLocation));
 	doc.Add(f);
 }
 
 doc.Dump();
+		
+		
+doc.Elements("Classroom").Select
+               (ele => new Room
+                  {
+                    RoomNumber = ele.Element("RoomNumber").Value,
+                    URILocation = new ICSUri(ele.Element("URILocation").Value)
+                  }
+            ).ToList().Dump();
