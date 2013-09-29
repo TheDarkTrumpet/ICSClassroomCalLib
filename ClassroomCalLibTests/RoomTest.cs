@@ -16,7 +16,7 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestBusyTimes()
         {
-            Room r = new Room {Uri = new Uri("../../fixture/RES-PHAR-129.ics"), RoomNumber = "RES-PHAR-129"};
+            Room r = new Room {Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics")), RoomNumber = "RES-PHAR-129"};
             r.Load(r.Uri);
             DateTime nFirst = new DateTime(2013,8,8,15,0,0);
             DateTime nSecond = new DateTime(2013,8,8,17,0,0);
@@ -29,7 +29,7 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestBusyTimesFromMinFuture()
         {
-            Room r = new Room { Uri = new Uri("../../fixture/RES-PHAR-129.ics"), RoomNumber = "RES-PHAR-129" };
+            Room r = new Room { Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics")), RoomNumber = "RES-PHAR-129" };
             r.Load(r.Uri);
             SystemTime.Now = () => new DateTime(2013, 8, 8, 15, 0, 0);
             IEnumerable<SimpleEvent> busyTimes = r.BusyTimes(120);
@@ -42,7 +42,7 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestSimpleCache()
         {
-            Room r = new Room { Uri = new Uri("../../fixture/RES-PHAR-129.ics"), RoomNumber = "RES-PHAR-129" };
+            Room r = new Room { Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics")), RoomNumber = "RES-PHAR-129" };
             r.Load(r.Uri);
 
             List<SimpleEvent> se = r.CacheToSimple(new DateTime(2013, 8, 8, 17, 0, 0));
@@ -63,7 +63,7 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestFreeBusyToString()
         {
-            Room r = new Room { Uri = new Uri("../../fixture/RES-PHAR-129.ics"), RoomNumber = "RES-PHAR-129" };
+            Room r = new Room { Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics")), RoomNumber = "RES-PHAR-129" };
             r.Load(r.Uri);
             Assert.AreEqual("Busy for 2 hours, and 45 minutes", r.FreeBusyToString(new DateTime(2013, 8, 1, 10, 15, 0)).ToString());
             //This may be best said as "free for about 4 days, and 21 hours

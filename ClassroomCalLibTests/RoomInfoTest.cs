@@ -19,7 +19,7 @@ namespace ClassroomCalLibTests
          */
         public void TestXMLLoadAll()
         {
-            RoomInfo ri = new RoomInfo(new Uri("../../fixture/classrooms.xml", UriKind.Relative));
+            RoomInfo ri = new RoomInfo(new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/classrooms.xml")));
             //RoomInfo ri = new RoomInfo();
             Assert.IsTrue(ri.LoadAll());
         }
@@ -48,22 +48,6 @@ namespace ClassroomCalLibTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void TestExceptionNullURILoadAll()
-        {
-            List<Room> myRooms = new Room[]{
-            new Room
-                {
-                    RoomNumber = "RES-PHAR-129",
-                    Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics"))
-                }
-            }.ToList();
-
-            RoomInfo ri = new RoomInfo(myRooms);  //Default is URI, should throw an error
-            ri.LoadAll();
-        }
-
-        [TestMethod]
         public void TestLoadOfSingleRoomWithDefaultURI()
         {
             RoomInfo ri = new RoomInfo(new Uri("../../fixture/classrooms.xml", UriKind.Relative));
@@ -89,12 +73,12 @@ namespace ClassroomCalLibTests
                 new Room
                 {
                     RoomNumber = "RES-PHAR-129",
-                    Uri = new Uri("../../fixture/RES-PHAR-129.ics")
+                    Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics"))
                 },
                 new Room
                 {
                     RoomNumber = "RES-PHAR-226",
-                    Uri = new Uri("../../fixture/RES-PHAR-129.ics")
+                    Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics"))
                 }
             }.ToList();
 
