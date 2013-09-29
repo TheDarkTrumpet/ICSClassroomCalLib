@@ -17,7 +17,7 @@ namespace ClassroomCalLibTests
          * This test will go through all the defaults we have, and load each URL.
          * This, by far, is the longest running test we have.</summary>
          */
-        public void TestDefaultURLLoadAll()
+        public void TestXMLLoadAll()
         {
             RoomInfo ri = new RoomInfo(new Uri("../../fixture/classrooms.xml", UriKind.Relative));
             //RoomInfo ri = new RoomInfo();
@@ -25,7 +25,7 @@ namespace ClassroomCalLibTests
         }
 
         [TestMethod]
-        public void TestFileLoadAll()
+        public void TestICSFileLoadAll()
         {
             List<Room> myRooms = new Room[]{
             new Room
@@ -85,11 +85,10 @@ namespace ClassroomCalLibTests
             ri.LoadAll("IncorrectLoadOption");
         }
 
-#if false
         [TestMethod]
         public void TestLoadOfSingleRoomWithDefaultURI()
         {
-            RoomInfo ri = new RoomInfo();
+            RoomInfo ri = new RoomInfo(new Uri("../../fixture/classrooms.xml", UriKind.Relative));
             Assert.IsTrue(ri.LoadRoom("PHAR-129"));
         }
 
@@ -97,10 +96,9 @@ namespace ClassroomCalLibTests
         [ExpectedException(typeof(NullReferenceException))]
         public void TestExceptionSingleLoad()
         {
-            RoomInfo ri = new RoomInfo();
+            RoomInfo ri = new RoomInfo(new Uri("../../fixture/classrooms.xml", UriKind.Relative));
             Assert.IsTrue(ri.LoadRoom("omg hax hax"));
         } 
-#endif
 
         [TestMethod]
         public void TestSerialization()
