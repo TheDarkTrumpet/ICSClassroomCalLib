@@ -31,7 +31,7 @@ namespace ClassroomCalLibTests
             new Room
                 {
                     RoomNumber = "RES-PHAR-129",
-                    Uri = new Uri("../../fixture/RES-PHAR-129.ics")
+                    Uri = new Uri("../../fixture/RES-PHAR-129.ics", UriKind.Relative)
                 }
             }.ToList();
 
