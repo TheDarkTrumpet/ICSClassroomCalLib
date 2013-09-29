@@ -7,7 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassroomCalLibTests", "Cla
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test Scripts", "Test Scripts", "{0AC9B33B-DF09-48A0-AB7B-9D6E505E4095}"
 	ProjectSection(SolutionItems) = preProject
+		Test Scripts\CreateConfigFile.linq = Test Scripts\CreateConfigFile.linq
 		Test Scripts\iCalUiowa.linq = Test Scripts\iCalUiowa.linq
+		Test Scripts\SerializeAndCache.linq = Test Scripts\SerializeAndCache.linq
+		Test Scripts\XMLSerialization.linq = Test Scripts\XMLSerialization.linq
 	EndProjectSection
 EndProject
 Global
