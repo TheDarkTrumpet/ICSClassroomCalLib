@@ -31,9 +31,7 @@ namespace ClassroomCalLibTests
             new Room
                 {
                     RoomNumber = "RES-PHAR-129",
-                    FPATHLocation =
-                        new ICSPath(
-                "../../fixture/RES-PHAR-129.ics")
+                    Uri = new Uri("../../fixture/RES-PHAR-129.ics")
                 }
             }.ToList();
 
@@ -57,9 +55,7 @@ namespace ClassroomCalLibTests
             new Room
                 {
                     RoomNumber = "RES-PHAR-129",
-                    FPATHLocation =
-                        new ICSPath(
-                "../../fixture/RES-PHAR-129.ics")
+                    Uri = new Uri("../../fixture/RES-PHAR-129.ics")
                 }
             }.ToList();
 
@@ -75,9 +71,7 @@ namespace ClassroomCalLibTests
             new Room
                 {
                     RoomNumber = "RES-PHAR-129",
-                    FPATHLocation =
-                        new ICSPath(
-                "../../fixture/RES-PHAR-129.ics")
+                    Uri = new Uri("../../fixture/RES-PHAR-129.ics")
                 }
             }.ToList();
 
@@ -89,7 +83,7 @@ namespace ClassroomCalLibTests
         public void TestLoadOfSingleRoomWithDefaultURI()
         {
             RoomInfo ri = new RoomInfo(new Uri("../../fixture/classrooms.xml", UriKind.Relative));
-            Assert.IsTrue(ri.LoadRoom("PHAR-129"));
+            Assert.IsTrue(ri.LoadRoomByName("PHAR-129"));
         }
 
         [TestMethod]
@@ -97,7 +91,7 @@ namespace ClassroomCalLibTests
         public void TestExceptionSingleLoad()
         {
             RoomInfo ri = new RoomInfo(new Uri("../../fixture/classrooms.xml", UriKind.Relative));
-            Assert.IsTrue(ri.LoadRoom("omg hax hax"));
+            Assert.IsTrue(ri.LoadRoomByName("omg hax hax"));
         } 
 
         [TestMethod]
@@ -111,14 +105,12 @@ namespace ClassroomCalLibTests
                 new Room
                 {
                     RoomNumber = "RES-PHAR-129",
-                    FPATHLocation =
-                        new ICSPath(
-                            "../../fixture/RES-PHAR-129.ics")
+                    Uri = new Uri("../../fixture/RES-PHAR-129.ics")
                 },
                 new Room
                 {
                     RoomNumber = "RES-PHAR-226",
-                    FPATHLocation = new ICSPath("../../fixture/RES-PHAR-226.ics")
+                    Uri = new Uri("../../fixture/RES-PHAR-129.ics")
                 }
             }.ToList();
 

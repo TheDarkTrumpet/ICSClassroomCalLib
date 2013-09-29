@@ -17,7 +17,7 @@ namespace ClassroomCalLib.ical
     {
         public Room() { }
 
-        public Room(String RoomNumber, ICSUri URIToLoad)
+        public Room(String RoomNumber, Uri URIToLoad)
         {
             this.RoomNumber = RoomNumber;
             this.Load(URIToLoad);
@@ -30,8 +30,7 @@ namespace ClassroomCalLib.ical
 
         // Attributes
         public String RoomNumber { get; set; }
-        public ICSUri URILocation { get; set; }
-        public ICSPath FPATHLocation { get; set; }
+        public Uri Uri { get; set; }
         private IICalendarCollection iCalc;
         private IICalendar iCal;
 
@@ -146,20 +145,13 @@ namespace ClassroomCalLib.ical
          * Given a URI/URL, we call iCalendar's LoadFromURI, select the first element in the return, then return true.
          * </summary>
          */
-        public bool Load(ICSUri path)
+
+        public bool Load(Uri path)
         {
-            iCalc = iCalendar.LoadFromUri(path.toURI());
+            iCalc = iCalendar.LoadFromUri(path);
             iCal = iCalc.FirstOrDefault();
-            this.URILocation = path;
-            return true;            
-        }
-        
-        public bool Load(ICSPath path)
-        {
-            iCalc = iCalendar.LoadFromFile(path.ToString());
-            iCal = iCalc.FirstOrDefault();
-            this.FPATHLocation = path;
-            return true;            
+            this.Uri = path;
+            return true;
         }
     }
 }

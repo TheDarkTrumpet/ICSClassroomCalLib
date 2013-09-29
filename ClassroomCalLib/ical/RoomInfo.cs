@@ -26,12 +26,12 @@ namespace ClassroomCalLib.ical
             
             foreach (Room mr in myRooms)
             {
-                success = success | _GenericLoader(mr, type);
+                success = success | mr.Load(mr.Uri);
             }
             return success;
         }
 
-        public bool LoadRoom(string room, string type = "URI")
+        public bool LoadRoomByName(string room)
         {
             Room mr = GetRoomByName(room);
             if (mr == null)
@@ -39,25 +39,7 @@ namespace ClassroomCalLib.ical
                 throw new NullReferenceException("Room not found in the collection of available rooms");
             }
 
-            return _GenericLoader(mr, type);
-        }
-
-        private bool _GenericLoader(Room RoomToLoad, string type)
-        {
-            bool success = false;
-            if (type == "URI")
-            {
-                success = success | RoomToLoad.Load(RoomToLoad.URILocation);
-            }
-            else if (type == "File")
-            {
-                success = success | RoomToLoad.Load(RoomToLoad.FPATHLocation);
-            }
-            else
-            {
-                throw new ArgumentException("Acceptable types of URI and File are allowed");
-            }
-            return success;
+            return false | mr.Load(mr.Uri);
         }
 
         public Room GetRoomByName(string name)
@@ -79,7 +61,7 @@ namespace ClassroomCalLib.ical
                (ele => new Room
                   {
                     RoomNumber = ele.Element("RoomNumber").Value,
-                    URILocation = new ICSUri(ele.Element("URILocation").Value)
+                    Uri = new Uri(ele.Element("URI").Value)
                   }
             ).ToList();
         }

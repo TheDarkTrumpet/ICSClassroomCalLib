@@ -10,36 +10,6 @@ using DDay.iCal;
 
 namespace ClassroomCalLib.util
 {
-    public class ICSUri
-    {
-        private Uri icsPath { get; set; }
-
-        public ICSUri(string val)
-        {
-            icsPath = new Uri(val);
-        }
-
-        public Uri toURI()
-        {
-            return icsPath;
-        }
-    }
-
-    public class ICSPath
-    {
-        public String Path { get; set; }
-
-        public ICSPath(string icspath)
-        {
-            Path = icspath;
-        }
-
-        public string ToString()
-        {
-            return Path;
-        }
-    }
-
     public static class SystemTime
     {
         public static Func<DateTime> Now = () => DateTime.Now;
@@ -86,9 +56,7 @@ namespace ClassroomCalLib.util
             sb.Append(status);
             sb.Append(" for ");
             sb.Append(exactCheck(SecondsInStatus));
-            //sb.Append(exactCheck(new TimeSpan(0,0,SecondsInStatus)));
             sb.Append(hoursMinutes(SecondsInStatus));
-            //sb.Append(hoursMinutes(new TimeSpan(0,0,int(SecondsInStatus))));
             return sb.ToString();
         }
 
