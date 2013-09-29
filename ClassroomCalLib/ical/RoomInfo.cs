@@ -20,7 +20,7 @@ namespace ClassroomCalLib.ical
             myRooms = roomStructure;
         }
 
-        public bool LoadAll(string type="URI")
+        public bool LoadAll()
         {
             bool success = false;
             

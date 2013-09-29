@@ -31,12 +31,12 @@ namespace ClassroomCalLibTests
             new Room
                 {
                     RoomNumber = "RES-PHAR-129",
-                    Uri = new Uri("../../fixture/RES-PHAR-129.ics", UriKind.Relative)
+                    Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics"))
                 }
             }.ToList();
 
             RoomInfo ri = new RoomInfo(myRooms);
-            Assert.IsTrue(ri.LoadAll("File"));
+            Assert.IsTrue(ri.LoadAll());
         }
 
         [TestMethod]
@@ -44,7 +44,7 @@ namespace ClassroomCalLibTests
         {
             List<Room> myRooms = new Room[] {}.ToList();
             RoomInfo ri = new RoomInfo(myRooms);
-            Assert.IsFalse(ri.LoadAll("File"));
+            Assert.IsFalse(ri.LoadAll());
         }
 
         [TestMethod]
@@ -55,28 +55,12 @@ namespace ClassroomCalLibTests
             new Room
                 {
                     RoomNumber = "RES-PHAR-129",
-                    Uri = new Uri("../../fixture/RES-PHAR-129.ics")
+                    Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics"))
                 }
             }.ToList();
 
             RoomInfo ri = new RoomInfo(myRooms);  //Default is URI, should throw an error
             ri.LoadAll();
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void TestExceptionIncorrectURILoadAll()
-        {
-            List<Room> myRooms = new Room[]{
-            new Room
-                {
-                    RoomNumber = "RES-PHAR-129",
-                    Uri = new Uri("../../fixture/RES-PHAR-129.ics")
-                }
-            }.ToList();
-
-            RoomInfo ri = new RoomInfo(myRooms);  //Default is URI, should throw an error
-            ri.LoadAll("IncorrectLoadOption");
         }
 
         [TestMethod]
@@ -115,7 +99,7 @@ namespace ClassroomCalLibTests
             }.ToList();
 
             RoomInfo ri = new RoomInfo(myRooms);
-            ri.LoadAll("File");
+            ri.LoadAll();
             ri.SerializeCacheToFile(myTestFile);
 
             Assert.IsTrue(File.Exists(myTestFile));

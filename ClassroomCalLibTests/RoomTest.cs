@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using DDay.iCal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ClassroomCalLib.ical;
@@ -54,7 +55,7 @@ namespace ClassroomCalLibTests
         [ExpectedException(typeof(TypeUnloadedException))]
         public void TestFreeBusyToStringException()
         {
-            Room r = new Room { Uri = new Uri("../../fixture/RES-PHAR-129.ics"), RoomNumber = "RES-PHAR-129" };
+            Room r = new Room { Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics")), RoomNumber = "RES-PHAR-129" };
             //Missing load function here...
             Assert.AreEqual("", r.FreeBusyToString(new DateTime(2013, 8, 1, 10, 15, 0)));
         }

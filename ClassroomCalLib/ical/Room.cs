@@ -149,6 +149,7 @@ namespace ClassroomCalLib.ical
         public bool Load(Uri path)
         {
             iCalc = iCalendar.LoadFromUri(path);
+            
             iCal = iCalc.FirstOrDefault();
             this.Uri = path;
             return true;
