@@ -91,9 +91,29 @@ namespace ClassroomCalLib.ical
             }
             
             return CachedEvents;
+        }
+
+        public List<SimpleEvent> CacheToSimple()
+        {
+            return _cacheToSimple(DateTime.Now, DateTime.Now.AddDays(7));
         } 
 
-        public List<SimpleEvent> CacheToSimple(DateTime startDate = default(DateTime), DateTime endDate = default(DateTime))
+        public List<SimpleEvent> CacheToSimple(DateTime startDate)
+        {
+            return _cacheToSimple(startDate, startDate.AddDays(7));
+        }
+
+        public List<SimpleEvent> CacheToSimple(DateTime startDate, DateTime endDate)
+        {
+            return _cacheToSimple(startDate, endDate);
+        }
+
+        public List<SimpleEvent> CacheToSimple(DateTime startDate, int numDays)
+        {
+            return _cacheToSimple(startDate, startDate.AddDays(numDays));
+        }
+
+        private List<SimpleEvent> _cacheToSimple(DateTime startDate, DateTime endDate)
         {
             if (iCal != null)
             {
@@ -105,21 +125,27 @@ namespace ClassroomCalLib.ical
                     endDate = startDate.AddDays(7);  //Default cache is 1 week in the future
                 }
 
-                foreach (Event e in ifb)
+                IList<Occurrence> occurrences;
+
+                if (endDate == default(DateTime) && startDate == default(DateTime))
                 {
-                    // If we have defaults, equate to True.  If we don't have defaults
-                    if (!(startDate != default(DateTime) && endDate != default(DateTime)) ||
-                        (endDate >= e.Start.ToTimeZone("US-Central").Value &&
-                         startDate <= e.End.ToTimeZone("US-Central").Value))
-                    {
-                        SimpleEvent ne = new SimpleEvent
+                    occurrences = iCal.GetOccurrences(startDate.AddYears(-200), endDate.AddYears(200));
+                }
+                else
+                {
+                    occurrences = iCal.GetOccurrences(startDate, endDate);
+                }
+
+                foreach (Occurrence e in occurrences)
+                {
+                    IRecurringComponent rc = e.Source as IRecurringComponent;
+                    SimpleEvent ne = new SimpleEvent
                         {
-                            EventName = e.Summary,
-                            EventStart = e.Start.ToTimeZone("US-Central").Value,
-                            EventStop = e.End.ToTimeZone("US-Central").Value
+                            EventName = rc.Summary,
+                            EventStart = e.Period.StartTime.ToTimeZone("US-Central").Value,
+                            EventStop = e.Period.EndTime.ToTimeZone("US-Central").Value
                         };
                         CachedEvents.Add(ne);
-                    }
                 }
                 CacheLoaded = true;
                 return CachedEvents;
@@ -129,7 +155,6 @@ namespace ClassroomCalLib.ical
                 throw new Exception("iCalendar has not been set/loaded");
             }
         }
-
         public void setCache(List<SimpleEvent> events)
         {
             CachedEvents = events;
