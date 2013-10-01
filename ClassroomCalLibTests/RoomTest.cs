@@ -21,7 +21,7 @@ namespace ClassroomCalLibTests
             r.Load(r.Uri);
             DateTime nFirst = new DateTime(2013,8,8,15,0,0);
             DateTime nSecond = new DateTime(2013,8,8,17,0,0);
-            IEnumerable<SimpleEvent> busyTimes = r.BusyTimes(nSecond, nFirst);
+            IEnumerable<SimpleEvent> busyTimes = r.BusyTimes(nFirst, nSecond);
 
             Assert.AreEqual(busyTimes.Count(), 1);
             Assert.AreEqual(busyTimes.FirstOrDefault().EventStart, new DateTime(2013,8,8,15,30,0));

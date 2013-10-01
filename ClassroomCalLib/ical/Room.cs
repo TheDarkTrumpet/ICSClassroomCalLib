@@ -68,17 +68,18 @@ namespace ClassroomCalLib.ical
             return BusyTimes(SystemTime.Now().AddMinutes(minutesFuture));
         }
 
-        public IEnumerable<SimpleEvent> BusyTimes(DateTime DateToGo, DateTime InitialTime=default(DateTime))
+        public IEnumerable<SimpleEvent> BusyTimes(DateTime InitialTime, DateTime DateToGo)
         {
             var BusyTimes = this.BusyTimes();
-            
-            if (InitialTime == default(DateTime))
-                {
-                    InitialTime = SystemTime.Now();
-                }
-
-            return BusyTimes.Where(x => x.EventStart <= DateToGo && x.EventStop >= InitialTime);
+  
+            return BusyTimes.Where(x => x.EventStart <= DateToGo && x.EventStop > InitialTime);
         }
+
+        public IEnumerable<SimpleEvent> BusyTimes(DateTime DateInFuture)
+        {
+            var InitialTime = SystemTime.Now();
+            return BusyTimes(InitialTime, DateInFuture);
+        } 
 
         public IEnumerable<SimpleEvent> BusyTimes()
         {
