@@ -91,6 +91,15 @@ namespace ClassroomCalLib.ical
             doc.Save(FilePath);
         }
 
+        public void SerializeCacheToFile(String FilePath, DateTime startTime, DateTime endTime)
+        {
+            foreach (Room r in GetAllRooms())
+            {
+                r.CacheToSimple(startTime, endTime);
+            }
+            SerializeCacheToFile(FilePath);
+        }
+
         public void DeserializeCacheFromFile(String FilePath)
         {
             XElement doc = XElement.Load(FilePath);
