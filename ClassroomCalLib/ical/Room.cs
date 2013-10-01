@@ -95,7 +95,7 @@ namespace ClassroomCalLib.ical
 
         public List<SimpleEvent> CacheToSimple()
         {
-            return _cacheToSimple(DateTime.Now, DateTime.Now.AddDays(7));
+            return _cacheToSimple(SystemTime.Now(), SystemTime.Now().AddDays(7));
         } 
 
         public List<SimpleEvent> CacheToSimple(DateTime startDate)
