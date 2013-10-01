@@ -16,6 +16,7 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestBusyTimes()
         {
+            SystemTime.Now = () => new DateTime(2013, 8, 7, 1, 0, 0);
             Room r = new Room {Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics")), RoomNumber = "RES-PHAR-129"};
             r.Load(r.Uri);
             DateTime nFirst = new DateTime(2013,8,8,15,0,0);
@@ -29,6 +30,7 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestBusyTimesFromMinFuture()
         {
+            SystemTime.Now = () => new DateTime(2013, 8, 1, 1, 0, 0);
             Room r = new Room { Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics")), RoomNumber = "RES-PHAR-129" };
             r.Load(r.Uri);
             SystemTime.Now = () => new DateTime(2013, 8, 8, 15, 0, 0);
@@ -63,6 +65,7 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestFreeBusyToString()
         {
+            SystemTime.Now = () => new DateTime(2013, 8, 1, 1, 0, 0);           
             Room r = new Room { Uri = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/RES-PHAR-129.ics")), RoomNumber = "RES-PHAR-129" };
             r.Load(r.Uri);
             Assert.AreEqual("Busy for 2 hours, and 45 minutes", r.FreeBusyToString(new DateTime(2013, 8, 1, 10, 15, 0)).ToString());
