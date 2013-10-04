@@ -16,7 +16,8 @@ namespace ClassroomCalLibTests
         /**<summary>
          * This test will go through all the defaults we have, and load each URL.
          * This, by far, is the longest running test we have.</summary>
-         */
+         *</summary>
+         */ 
         public void TestXMLLoadAll()
         {
             RoomInfo ri = new RoomInfo(new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/classrooms.xml")));
@@ -103,7 +104,8 @@ namespace ClassroomCalLibTests
         [TestMethod]
         public void TestLoadXML()
         {
-            Assert.IsTrue(File.Exists("../../fixture/classrooms.xml"));
+            //Assert.IsTrue(File.Exists("../../fixture/classrooms.xml"));
+            Assert.IsTrue(File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "../../fixture/classrooms.xml")));
         }
     }
 }

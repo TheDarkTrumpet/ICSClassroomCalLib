@@ -6,20 +6,29 @@ using ClassroomCalLib.util;
 
 namespace ClassroomCalLib.ical
 {
+    /// <summary>
+    /// RoomInfo is used to initialize and store sets of Rooms.
+    /// </summary>
     public class RoomInfo
     {
         private List<Room> myRooms;
 
+        ///<summary>Initiates an instance of RoomInfo</summary>
+        ///<param name="pathToXML">Uri to the XML file where room info is stored</param>
         public RoomInfo(Uri pathToXML)
         {
             myRooms = loadRoomInfoFromXML(pathToXML);
         }
 
+        /// <summary>Initiates an instance of RoomInfo</summary>
+        /// <param name="roomStructure">List of Rooms</param>
         public RoomInfo(List<Room>roomStructure)
         {
             myRooms = roomStructure;
         }
 
+        /// <summary>Loads each room stored</summary>
+        /// <returns>true if each room room is loaded sucessfully, false if one room is not loaded</returns>
         public bool LoadAll()
         {
             bool success = false;
@@ -31,6 +40,9 @@ namespace ClassroomCalLib.ical
             return success;
         }
 
+        /// <summary>Loads a given Room</summary>
+        /// <param name="room">Room to load</param>
+        /// <returns>true if the Room was loaded, false if it wasn't</returns>
         public bool LoadRoomByName(string room)
         {
             Room mr = GetRoomByName(room);
@@ -42,17 +54,32 @@ namespace ClassroomCalLib.ical
             return false | mr.Load(mr.Uri);
         }
 
+        /// <summary>
+        /// Returns the Room matching the input
+        /// </summary>
+        /// <param name="name">Name of the room to return</param>
+        /// <returns>Room</returns>
         public Room GetRoomByName(string name)
         {
             //There should *never* be duplicate rooms
             return myRooms.FirstOrDefault(x => x.RoomNumber == name);
         }
 
+        /// <summary>
+        /// Returns a set of all of the ROooms
+        /// </summary>
+        /// <returns>Set of all Rooms</returns>
         public IEnumerable<Room> GetAllRooms()
         {
             return myRooms;
         }
 
+        /// <summary>
+        /// Loads an XML document from a given Uri, then returns a list of Rooms.
+        /// Attributes from each Room are obtained from elements in the XML document
+        /// </summary>
+        /// <param name="fileUri">Uri to the XML document of rooms</param>
+        /// <returns>Set of new Rooms as a List</returns>
         public List<Room> loadRoomInfoFromXML(Uri fileUri)
         {
             XDocument myXDocument = XDocument.Load(fileUri.ToString());
@@ -66,7 +93,10 @@ namespace ClassroomCalLib.ical
             ).ToList();
         }
 
-
+        /// <summary>
+        /// Caches all of the Room availabilities to an XML document
+        /// </summary>
+        /// <param name="FilePath">Name of the cache file to be created</param>
         public void SerializeCacheToFile(String FilePath)
         {
             XElement doc = new XElement("Rooms");
@@ -91,6 +121,12 @@ namespace ClassroomCalLib.ical
             doc.Save(FilePath);
         }
 
+        /// <summary>
+        /// Caches all of the Room availabilities to an XML document
+        /// </summary>
+        /// <param name="FilePath">Name of the cache file to be created</param>
+        /// <param name="startTime">Starting point of events to cache</param>
+        /// <param name="endTime">Ending point of events to cache</param>
         public void SerializeCacheToFile(String FilePath, DateTime startTime, DateTime endTime)
         {
             foreach (Room r in GetAllRooms())
@@ -100,6 +136,10 @@ namespace ClassroomCalLib.ical
             SerializeCacheToFile(FilePath);
         }
 
+        /// <summary>
+        /// Deserializes Room information from a file with the given path
+        /// </summary>
+        /// <param name="FilePath">Path to the file</param>
         public void DeserializeCacheFromFile(String FilePath)
         {
             XElement doc = XElement.Load(FilePath);

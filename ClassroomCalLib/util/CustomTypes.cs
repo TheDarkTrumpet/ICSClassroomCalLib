@@ -25,6 +25,11 @@ namespace ClassroomCalLib.util
         public string Status { get; set; }
     }
 
+    /**<summary>
+     * Class which describes
+     * 
+     * </summary>
+     */
     public class FriendlyEvent
     {
         public string Status { get; set; }

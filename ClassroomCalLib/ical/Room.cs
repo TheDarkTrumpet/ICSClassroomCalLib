@@ -12,9 +12,14 @@ namespace ClassroomCalLib.ical
     /**<summary>
      * Class that describes a common room.  Contains the RoomNumber and
      * helper methods that can be used to identify the BusyTimes
-     */ 
+     * </summary>
+     */
     public class Room
     {
+        /**<summary>
+         * Initiates a new instance of the Room class with given information
+         * </summary>
+         */
         public Room() { }
 
         public Room(String RoomNumber, Uri URIToLoad)
@@ -63,6 +68,9 @@ namespace ClassroomCalLib.ical
             }
         }
 
+        ///<summary>Returns a list of busy times for this room from now until n minutes</summary>
+        ///<param name="minutesFuture">Number of minutes into the future to look</param>
+        ///<returns>Returns list of busy times</returns>
         public IEnumerable<SimpleEvent> BusyTimes(int minutesFuture)
         {
             return BusyTimes(SystemTime.Now().AddMinutes(minutesFuture));
@@ -79,8 +87,10 @@ namespace ClassroomCalLib.ical
         {
             var InitialTime = SystemTime.Now();
             return BusyTimes(InitialTime, DateInFuture);
-        } 
+        }
 
+        ///<summary>Returns a list of busy times for this room</summary>
+        ///<returns>Returns list of busy times</returns>
         public IEnumerable<SimpleEvent> BusyTimes()
         {
             //If no iCal object, then we haven't loaded.  If no cache, then there's nothing to query from and we got here incorrectly
@@ -94,21 +104,42 @@ namespace ClassroomCalLib.ical
             return CachedEvents;
         }
 
+        /// <summary>
+        /// Caches Room events in the next seven days
+        /// </summary>
+        /// <returns>List of SimpleEvents</returns>
         public List<SimpleEvent> CacheToSimple()
         {
             return _cacheToSimple(SystemTime.Now(), SystemTime.Now().AddDays(7));
         } 
 
+        /// <summary>
+        /// Caches Room events of seven days, starting with a given day
+        /// </summary>
+        /// <param name="startDate">First day of events to cache</param>
+        /// <returns>List of SimpleEvents</returns>
         public List<SimpleEvent> CacheToSimple(DateTime startDate)
         {
             return _cacheToSimple(startDate, startDate.AddDays(7));
         }
 
+        /// <summary>
+        /// Caches Room events in the given range of days
+        /// </summary>
+        /// <param name="startDate">First day of events to cache</param>
+        /// <param name="endDate">End day of events to cache</param>
+        /// <returns>List of SimpleEvents</returns>
         public List<SimpleEvent> CacheToSimple(DateTime startDate, DateTime endDate)
         {
             return _cacheToSimple(startDate, endDate);
         }
 
+        /// <summary>
+        /// Caches Room events, starting on the given date, for a given amount of days
+        /// </summary>
+        /// <param name="startDate">First day of events to cache</param>
+        /// <param name="numDays">Number of days worth of events</param>
+        /// <returns>List of SimpleEvents</returns>
         public List<SimpleEvent> CacheToSimple(DateTime startDate, int numDays)
         {
             return _cacheToSimple(startDate, startDate.AddDays(numDays));
@@ -156,12 +187,17 @@ namespace ClassroomCalLib.ical
                 throw new Exception("iCalendar has not been set/loaded");
             }
         }
+
+        ///<summary>Returns a list of busy times for this room</summary>
+        ///<param name="events">List of events to cache</param>
         public void setCache(List<SimpleEvent> events)
         {
             CachedEvents = events;
             CacheLoaded = true;
         }
 
+        ///<summary>Returns this rooms calendar</summary>
+        ///<returns>Returns calendar</returns>
        public IICalendar GetCalendar()
         {
             return iCal;
@@ -171,7 +207,6 @@ namespace ClassroomCalLib.ical
          * Given a URI/URL, we call iCalendar's LoadFromURI, select the first element in the return, then return true.
          * </summary>
          */
-
         public bool Load(Uri path)
         {
             iCalc = iCalendar.LoadFromUri(path);
