@@ -105,7 +105,7 @@ namespace ClassroomCalLib.ical
         }
 
         /// <summary>
-        /// Caches Room events in the next seven days
+        /// Caches Room events that are scheduled in the next seven days
         /// </summary>
         /// <returns>List of SimpleEvents</returns>
         public List<SimpleEvent> CacheToSimple()
@@ -124,22 +124,22 @@ namespace ClassroomCalLib.ical
         }
 
         /// <summary>
-        /// Caches Room events in the given range of days
+        /// Caches Room events in the interval [startDate, endDate)
         /// </summary>
         /// <param name="startDate">First day of events to cache</param>
         /// <param name="endDate">End day of events to cache</param>
-        /// <returns>List of SimpleEvents</returns>
+        /// <returns>List of SimpleEvents [startDate, endDate)</returns>
         public List<SimpleEvent> CacheToSimple(DateTime startDate, DateTime endDate)
         {
             return _cacheToSimple(startDate, endDate);
         }
 
         /// <summary>
-        /// Caches Room events, starting on the given date, for a given amount of days
+        /// Caches Room events in the interval [startDate, startDate + numDays)
         /// </summary>
         /// <param name="startDate">First day of events to cache</param>
         /// <param name="numDays">Number of days worth of events</param>
-        /// <returns>List of SimpleEvents</returns>
+        /// <returns>List of SimpleEvents [startDate, startDate + numDays)</returns>
         public List<SimpleEvent> CacheToSimple(DateTime startDate, int numDays)
         {
             return _cacheToSimple(startDate, startDate.AddDays(numDays));
@@ -188,7 +188,7 @@ namespace ClassroomCalLib.ical
             }
         }
 
-        ///<summary>Returns a list of busy times for this room</summary>
+        ///<summary>Sets the cache for this room</summary>
         ///<param name="events">List of events to cache</param>
         public void setCache(List<SimpleEvent> events)
         {
